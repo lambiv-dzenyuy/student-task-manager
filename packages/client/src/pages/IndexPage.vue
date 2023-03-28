@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+import { api } from 'boot/axios'
 import { Todo, Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
 import { ref } from 'vue';
@@ -33,14 +34,15 @@ const todos = ref<Todo[]>([
     content: 'ct5'
   }
 ]);
-
-const students = fetch('http://localhost:3000/api/users', {
-  method: 'get',
-  headers: {
-    'content-type': 'application/json'
-  }
-}).then(json => console.log(json));
-;
+async function getUser() {
+  api.get('/users', {
+    method: 'get',
+    headers: {
+      'content-type': 'application/json'
+    }
+  }).then(json => console.log(json));
+}
+getUser()
 const meta = ref<Meta>({
   totalCount: 1200
 });
