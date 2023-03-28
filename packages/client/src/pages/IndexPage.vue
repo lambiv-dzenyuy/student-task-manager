@@ -1,11 +1,8 @@
+
 <template>
   <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+    <ExampleComponent title="Example component" active :todos="todos" :meta="meta"></ExampleComponent>
+    <!-- <li v-for="student in students" :key="student.id">{{ student.lastName }}</li> -->
   </q-page>
 </template>
 
@@ -36,6 +33,14 @@ const todos = ref<Todo[]>([
     content: 'ct5'
   }
 ]);
+
+const students = fetch('http://localhost:3000/api/users', {
+  method: 'get',
+  headers: {
+    'content-type': 'application/json'
+  }
+}).then(json => console.log(json));
+;
 const meta = ref<Meta>({
   totalCount: 1200
 });

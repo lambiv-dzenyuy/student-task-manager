@@ -47,11 +47,11 @@ module.exports = {
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-files
     // required to lint *.vue files
     'vue'
-    
+
     // https://github.com/typescript-eslint/typescript-eslint/issues/389#issuecomment-509292674
     // Prettier has not been included as plugin to avoid performance impact
     // add it as an extension for your IDE
-    
+
   ],
 
   globals: {
@@ -67,10 +67,39 @@ module.exports = {
     chrome: 'readonly'
   },
 
+
   // add your custom rules here
   rules: {
-    
+
     'prefer-promise-reject-errors': 'off',
+       // --- Vue ---
+       'vue/eqeqeq': 'error',
+       'vue/block-lang': [
+         'error',
+         { script: { lang: 'ts' }, style: { lang: 'scss' } },
+       ],
+       'vue/component-name-in-template-casing': ['error'],
+       'vue/custom-event-name-casing': 'warn',
+       'vue/html-comment-content-spacing': 'warn',
+       'vue/html-comment-indent': 'warn',
+       'vue/html-comment-content-newline': 'warn',
+       'vue/no-deprecated-v-is': 'error',
+       'vue/no-duplicate-attr-inheritance': 'error',
+       'vue/no-empty-component-block': 'warn',
+       'vue/no-static-inline-styles': 'warn',
+       'vue/no-unsupported-features': ['error', { version: '3.2.0' }],
+       'vue/no-unused-properties': ['warn', { groups: ['props', 'setup'] }],
+       'vue/no-useless-v-bind': 'warn',
+       'vue/padding-line-between-blocks': 'warn',
+       'vue/require-emit-validator': 'error',
+       'vue/require-name-property': 'error',
+       'vue/v-for-delimiter-style': 'warn',
+       'vue/v-on-event-hyphenation': 'error',
+       'vue/multi-word-component-names': ['error', {
+        'ignores': ['default']
+      }],
+
+
 
     quotes: ['warn', 'single', { avoidEscape: true }],
 
@@ -86,5 +115,21 @@ module.exports = {
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+  },
+
+
+  overrides: [
+    // Pages are not used as components directly by developers, so they don't necessarily need to have multi word component names
+    {
+      files: ['src/pages/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 0,
+      },
+    },
+    {
+      files: ['**/*.spec.{js,ts}'],
+
+    },
+  ],
+
 }

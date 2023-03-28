@@ -1,41 +1,21 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+    <q-drawer class="bg-primary text-white" v-model="leftDrawerOpen" show-if-above bordered>
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item>
+          <div class="fit column wrap justify-center items-center content-center">
+          <q-avatar class="q-my-lg">
+            <img src="https://cdn.quasar.dev/img/avatar.png">
+          </q-avatar>
+          <q-item-label>
+            Rameline Ijang
+          </q-item-label>
+        </div>
+        </q-item>
+        <q-separator dark />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
