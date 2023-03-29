@@ -1,49 +1,76 @@
-
+<!-- eslint-disable vue/block-lang -->
 <template>
-  <q-page class="row items-center justify-evenly">
-    <ExampleComponent title="Example component" active :todos="todos" :meta="meta"></ExampleComponent>
-    <!-- <li v-for="student in students" :key="student.id">{{ student.lastName }}</li> -->
-  </q-page>
+  <div class="container-fluid">
+    <h2 class="m-5">
+      Vue Kanban Board
+    </h2>
+    <div @drop="onDrop($event, 'Done')" @dragenter.prevent @dragover.prevent class="drop-zone ">
+      <div draggable="true" @dragstart="startDrag($event, item)" v-for="item in getList('Done')" :key="item.id"
+        class="drag-el">
+        {{ item.title }}
+      </div>
+    </div>
+    <div @drop="onDrop($event, 'In Progress')" @dragenter.prevent @dragover.prevent class="drop-zone ">
+      <div draggable="true" @dragstart="startDrag($event, item)" v-for="item in getList('In Progress')" :key="item.id"
+        class="drag-el">
+        {{ item.title }}
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
-import { api } from 'boot/axios'
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { ref } from 'vue';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-async function getUser() {
-  api.get('/users', {
-    method: 'get',
-    headers: {
-      'content-type': 'application/json'
-    }
-  }).then(json => console.log(json));
+<script lang="ts"  setup>
+import { api } from 'src/boot/axios';
+import { ref } from 'vue';
+import { Task } from '../components/models'
+
+
+
+const tasks = ref<Task[]>([])
+
+ await api.get('tasks').then(res => tasks.value = res.data ) as Task[]
+
+
+function getList(list: string) {
+  return tasks.value.filter(item => item.status == list)
 }
-getUser()
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+function startDrag(event:
+  DragEvent, item: Task) {
+  if (event.dataTransfer) {
+    event.dataTransfer.dropEffect = 'move';
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('itemID', `${item.id}`)
+  }
+}
+
+
+function onDrop(event: DragEvent, list: string) {
+  if (event.dataTransfer) {
+    const itemID = event.dataTransfer?.getData('itemID');
+    // const isThereItemID = JSON.parse(event.dataTransfer.getData("text") || "");
+console.log('on drop', 'id', itemID);
+
+    let item: Task = tasks.value.find((item) => item.id.toString() == itemID) as Task
+    item.status = list
+
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+.drop-zone {
+  width: 50%;
+  margin: 50px auto;
+  background-color: #ecf0f1;
+  padding: 10px;
+  min-height: 10px
+}
+
+.drag-el {
+  background-color: aqua;
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+</style>

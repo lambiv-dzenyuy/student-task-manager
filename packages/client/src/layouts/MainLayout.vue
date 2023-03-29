@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
 
-    <q-drawer class="bg-primary text-white" v-model="leftDrawerOpen" show-if-above bordered>
+    <q-drawer class="bg-primary text-white" show-if-above bordered>
 
       <q-list>
         <q-item>
@@ -20,7 +20,9 @@
     </q-drawer>
 
     <q-page-container>
+      <Suspense>
       <router-view />
+      </Suspense>
     </q-page-container>
   </q-layout>
 </template>
@@ -74,9 +76,6 @@ const essentialLinks: EssentialLinkProps[] = [
   }
 ];
 
-const leftDrawerOpen = ref(false)
 
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
+
 </script>
