@@ -1,6 +1,8 @@
 import { Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { seedCategories } from './categories';
 import { seedStudents } from './students';
+import { seedTasks } from './tasks';
 
 const prisma = new PrismaClient();
 
@@ -15,6 +17,8 @@ export type PrismaTransactionClient = Omit<
 async function main() {
   Logger.log('Seeding');
   await seedStudents(prisma);
+  await seedCategories(prisma);
+  await seedTasks(prisma);
 }
 
 main()
