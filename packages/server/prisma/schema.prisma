@@ -8,22 +8,36 @@ datasource db {
 }
 
 model Student {
-  id        Int     @id @default(autoincrement())
-  firstName String
-  lastName  String
-  password  String?
-  avatar    String
-  email     String?
-  tasks     Task[]
+  id         Int        @id @default(autoincrement())
+  firstName  String
+  lastName   String
+  password   String?
+  avatar     String
+  email      String?
+  tasks      Task[]
+  categories Category[]
 }
 
 model Task {
   id          Int      @id @default(autoincrement())
   title       String
   description String?
+  status      String
   completed   Boolean? @default(false)
   studentId   Int
   student     Student  @relation(fields: [studentId], references: [id])
 
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
   @@index([studentId], map: "Task_studentId_fkey")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  tasks       Task[]
+  Student     Student? @relation(fields: [studentId], references: [id])
+  studentId   Int
 }
