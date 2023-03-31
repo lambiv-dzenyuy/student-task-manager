@@ -1,9 +1,11 @@
+import { id } from './fixture';
 import { PrismaTransactionClient } from './index';
 
-export async function seedCategories(prisma: PrismaTransactionClient) {
-  await prisma.category.createMany({
+export async function seedProjects(prisma: PrismaTransactionClient) {
+  await prisma.project.createMany({
     data: [
       {
+        id: id,
         title: "One Night at McCool's",
         description:
           'Revision of Synthetic Substitute in Low Back, Open Approach',
