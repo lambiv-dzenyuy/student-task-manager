@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
 
-    <q-drawer class="bg-primary text-white" show-if-above bordered>
+    <q-drawer class="bg-primary text-white rounded-borders q-ma-sm" show-if-above bordered>
 
       <q-list>
         <q-item>
@@ -14,8 +14,47 @@
           </q-item-label>
         </div>
         </q-item>
-        <q-separator dark />
-        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+
+        <q-list
+          padding
+          class="text-grey-8 text-weight-medium text-size-14 line-height-20"
+        >
+
+
+          <q-separator class="q-mx-md q-mb-md" />
+
+          <q-item
+            v-for="item in sidebarListItems"
+            :key="item.label"
+            clickable
+            active-class="text-accent"
+            :to="item.to"
+          >
+            <q-item-section avatar>
+              <q-btn flat dense :icon="item.icon" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>{{ item.label }}</q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-separator class="q-mx-md" spaced="lg" />
+
+          <q-item>
+            <q-item-section class="text-weight-bold"> Settings </q-item-section>
+          </q-item>
+          <q-item  clickable>
+            <q-item-section avatar>
+              <q-btn flat dense  />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label></q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+
+
+
       </q-list>
     </q-drawer>
 
@@ -28,54 +67,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
+import {
+  mdiDomain,
 
-const essentialLinks: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
+  mdiViewDashboard,
+  mdiFileTreeOutline,
+
+mdiPlus,
+} from '@quasar/extras/mdi-v6';
+// import { useI18n } from 'vue-i18n';
+import { RouteLocationRaw } from 'vue-router';
+
+
+
+
+// TODO: use correct icons from Flat icons instead of MDI
+type SideBarItem = { label: string; icon: string; to?: RouteLocationRaw };
+const sidebarListItems: SideBarItem[] = [
+  { label: 'Dashboard', icon: mdiViewDashboard, to: '/' },
+  { label: 'Projects/Categories', icon: mdiFileTreeOutline },
+  { label: 'My Tasks', icon: mdiDomain },
+  { label: 'Create New Task', icon: mdiPlus },
+
 ];
 
+
+
+// const { locale } = useI18n({ useScope: 'global' });
+// const localeOptions = [
+//   { value: 'en', label: 'English' },
+//   { value: 'fr', label: 'French' },
+// ];
 
 
 </script>
