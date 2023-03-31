@@ -1,10 +1,13 @@
 <!-- eslint-disable vue/block-lang -->
 <template>
+  <q-page>
   <div class="container-fluid">
     <h2 class="m-5">
-      Vue Kanban Board
+
     </h2>
-    <div @drop="onDrop($event, 'Done')" @dragenter.prevent @dragover.prevent class="drop-zone ">
+  <div class="fit row inline wrap justify-around items-stretch">
+    <div @drop="onDrop($event, 'Done')" @dragenter.prevent
+    @dragover.prevent class="drop-zone ">
       <div draggable="true" @dragstart="startDrag($event, item)" v-for="item in getList('Done')" :key="item.id"
         class="drag-el">
         {{ item.title }}
@@ -17,6 +20,8 @@
       </div>
     </div>
   </div>
+  </div>
+</q-page>
 </template>
 
 
@@ -59,18 +64,7 @@ console.log('on drop', 'id', itemID);
 </script>
 
 <style lang="scss" scoped>
-.drop-zone {
-  width: 50%;
-  margin: 50px auto;
-  background-color: #ecf0f1;
-  padding: 10px;
-  min-height: 10px
-}
-
-.drag-el {
-  background-color: aqua;
-  color: white;
-  padding: 5px;
-  margin-bottom: 10px;
+.drop_zone {
+  overflow: auto; min-width: 300; max-width: 300;
 }
 </style>
