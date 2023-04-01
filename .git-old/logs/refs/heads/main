@@ -1,0 +1,28 @@
+0000000000000000000000000000000000000000 6d852b578ed044ab87a972f466a138eca8120e53 lambiv-dzenyuy <gillslambiv@gmail.com> 1679936665 +0100	commit (initial): initial commit
+6d852b578ed044ab87a972f466a138eca8120e53 51eee5a3f74364b73fcf4eff95a9f9562d70c68a lambiv-dzenyuy <gillslambiv@gmail.com> 1679936706 +0100	commit: chore: setup client infrastructure
+51eee5a3f74364b73fcf4eff95a9f9562d70c68a 4686d31d112ac40798aeb0e697ee339f22c40c9f lambiv-dzenyuy <gillslambiv@gmail.com> 1679938038 +0100	commit: chore : change client infrastructure
+4686d31d112ac40798aeb0e697ee339f22c40c9f dd461e53a277ccd381a70d8e57517f536881cbc2 lambiv-dzenyuy <gillslambiv@gmail.com> 1679944628 +0100	commit: chore: setup server
+dd461e53a277ccd381a70d8e57517f536881cbc2 dd461e53a277ccd381a70d8e57517f536881cbc2 lambiv-dzenyuy <gillslambiv@gmail.com> 1679948082 +0100	Branch: renamed refs/heads/master to refs/heads/main
+dd461e53a277ccd381a70d8e57517f536881cbc2 4141ffb79685a0b670e1b6f6a8a37239e534efbf lambiv-dzenyuy <gillslambiv@gmail.com> 1679952328 +0100	commit: feat(server): add prisma
+4141ffb79685a0b670e1b6f6a8a37239e534efbf ad6f966a6674280e1ce01b8d717a6ffec4a9e388 lambiv-dzenyuy <gillslambiv@gmail.com> 1680013232 +0100	commit: feat(client): setup linting rules
+ad6f966a6674280e1ce01b8d717a6ffec4a9e388 4dc8123b6cce6d5382618adbc0fe66696d4988ec lambiv-dzenyuy <gillslambiv@gmail.com> 1680013339 +0100	commit: feat(client): add route to login
+4dc8123b6cce6d5382618adbc0fe66696d4988ec 413de81dddf60ec58ce7648aa9dae276b523a12e lambiv-dzenyuy <gillslambiv@gmail.com> 1680013380 +0100	commit: feat(server): setup prisma
+413de81dddf60ec58ce7648aa9dae276b523a12e 6008215265fdebad1ba38dcbd9a7ad2f2770028f lambiv-dzenyuy <gillslambiv@gmail.com> 1680014102 +0100	commit: feat(client): add axios dep
+6008215265fdebad1ba38dcbd9a7ad2f2770028f abf1a0674538ccb2a9d681cd6a0e370e10b21135 lambiv-dzenyuy <gillslambiv@gmail.com> 1680014938 +0100	commit: feat(client): base url for api end points
+abf1a0674538ccb2a9d681cd6a0e370e10b21135 4490e49d0eea30b16a53cd29ab1d5c3ab7da8c0d lambiv-dzenyuy <gillslambiv@gmail.com> 1680118719 +0100	commit: feat(server): update schema model definition
+4490e49d0eea30b16a53cd29ab1d5c3ab7da8c0d 4d5595a8a867eb14fa6e3cb9af9b58aaa08c0937 lambiv-dzenyuy <gillslambiv@gmail.com> 1680119392 +0100	commit: feat(server): add db mirgration
+4d5595a8a867eb14fa6e3cb9af9b58aaa08c0937 bca256181ddfd8ac5910cfdbb712f1afabecbada lambiv-dzenyuy <gillslambiv@gmail.com> 1680119431 +0100	commit: feat(server): add seeds
+bca256181ddfd8ac5910cfdbb712f1afabecbada c9210b38e95233a48652910c1498bdc260d3916f lambiv-dzenyuy <gillslambiv@gmail.com> 1680119475 +0100	commit: feat(server): add get tasks end point
+c9210b38e95233a48652910c1498bdc260d3916f 6c14b908711e084486568eac38f67108cca0dd2d lambiv-dzenyuy <gillslambiv@gmail.com> 1680119529 +0100	commit: feat(client): add interface for task
+6c14b908711e084486568eac38f67108cca0dd2d 72970bec9a9bd98e10dd235e6ec5b0f64a6398a6 lambiv-dzenyuy <gillslambiv@gmail.com> 1680119571 +0100	commit: feat(client): add html5 drag and drop
+72970bec9a9bd98e10dd235e6ec5b0f64a6398a6 d364f564d74309fbbac73b928baedd01f327ad55 lambiv-dzenyuy <gillslambiv@gmail.com> 1680306633 +0100	commit: feat(server): add class validator dep
+d364f564d74309fbbac73b928baedd01f327ad55 63caec6f2b5fe13bb95e82c5313f3acda95fd79d lambiv-dzenyuy <gillslambiv@gmail.com> 1680306673 +0100	commit: feat(client): add vue-i18n dep
+63caec6f2b5fe13bb95e82c5313f3acda95fd79d 4f9babe992d2951115a4ac9dc91053f33ff2905f lambiv-dzenyuy <gillslambiv@gmail.com> 1680306740 +0100	commit: chore: formatting and linting
+4f9babe992d2951115a4ac9dc91053f33ff2905f 977f70b669dba0ef0bf167d89ff44e676f99a425 lambiv-dzenyuy <gillslambiv@gmail.com> 1680306791 +0100	commit: feat(server): migrate db
+977f70b669dba0ef0bf167d89ff44e676f99a425 7f7123215f55cb2c85e191cab9cd4297df82beb4 lambiv-dzenyuy <gillslambiv@gmail.com> 1680306820 +0100	commit: feat(client): update sidebar display
+7f7123215f55cb2c85e191cab9cd4297df82beb4 e8057e94d4dfcc8cb6caead30aa2ff45df87a068 lambiv-dzenyuy <gillslambiv@gmail.com> 1680306855 +0100	commit: feat(client): render database tasks
+e8057e94d4dfcc8cb6caead30aa2ff45df87a068 4234d65927db828a842fc63048d2fef6e403304d lambiv-dzenyuy <gillslambiv@gmail.com> 1680306901 +0100	commit: feat(server): add id fixture for seeding
+4234d65927db828a842fc63048d2fef6e403304d db7c72ed86adcb3a7f12e7055bd86f540d03b319 lambiv-dzenyuy <gillslambiv@gmail.com> 1680306955 +0100	commit: fix(server): fix missing fields in seeds
+db7c72ed86adcb3a7f12e7055bd86f540d03b319 1b141235be74ae3e0f9dfe4086e45e66fbb8c29e lambiv-dzenyuy <gillslambiv@gmail.com> 1680307063 +0100	commit: feat(server): add projects module
+1b141235be74ae3e0f9dfe4086e45e66fbb8c29e db4de83f42047ea404846a4b2cf39ffa54027dad lambiv-dzenyuy <gillslambiv@gmail.com> 1680310384 +0100	commit: chore: workspace rules
+db4de83f42047ea404846a4b2cf39ffa54027dad 9680edd2ebcbb9538e2a0c6a3b8cc01700a49c04 lambiv-dzenyuy <gillslambiv@gmail.com> 1680310436 +0100	commit: feat(server): add project endpoints

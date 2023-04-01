@@ -3,23 +3,26 @@
   <q-page>
   <div class="container-fluid">
     <h2 class="m-5">
-
+  {{  tasks[0].title}}
     </h2>
-  <div class="fit row inline wrap justify-around items-stretch">
-    <div @drop="onDrop($event, 'Done')" @dragenter.prevent
-    @dragover.prevent class="drop-zone ">
-      <div draggable="true" @dragstart="startDrag($event, item)" v-for="item in getList('Done')" :key="item.id"
-        class="drag-el">
+
+  <!-- <div class="fit row inline wrap justify-around items-stretch"> -->
+    <div
+class="drop-zone " @drop="onDrop($event, 'Done')"
+    @dragenter.prevent @dragover.prevent>
+      <div
+v-for="item in getList('Done')" :key="item.id" draggable="true" class="drag-el text-red"
+        @dragstart="startDrag($event, item)">
         {{ item.title }}
       </div>
     </div>
-    <div @drop="onDrop($event, 'In Progress')" @dragenter.prevent @dragover.prevent class="drop-zone ">
-      <div draggable="true" @dragstart="startDrag($event, item)" v-for="item in getList('In Progress')" :key="item.id"
-        class="drag-el">
+    <div class="drop-zone " @drop="onDrop($event, 'In Progress')" @dragenter.prevent @dragover.prevent>
+      <div
+v-for="item in getList('In Progress')" :key="item.id" draggable="true" class="drag-el"
+        @dragstart="startDrag($event, item)">
         {{ item.title }}
       </div>
     </div>
-  </div>
   </div>
 </q-page>
 </template>
@@ -34,18 +37,27 @@ import { Task } from '../components/models'
 
 const tasks = ref<Task[]>([])
 
- await api.get('tasks').then(res => tasks.value = res.data ) as Task[]
+ await api.get('tasks').then(res => {
+  tasks.value = res.data;
+  console.log(res.data);
+
+});
+
 
 
 function getList(list: string) {
-  return tasks.value.filter(item => item.status == list)
+  return tasks.value.filter(item => {
+    console.log(item.status);
+
+    return item.status == list})
+
 }
 function startDrag(event:
-  DragEvent, item: Task) {
+  DragEvent, item : Task) {
   if (event.dataTransfer) {
     event.dataTransfer.dropEffect = 'move';
     event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData('itemID', `${item.id}`)
+    event.dataTransfer.setData('itemID', item.id)
   }
 }
 
@@ -56,7 +68,7 @@ function onDrop(event: DragEvent, list: string) {
     // const isThereItemID = JSON.parse(event.dataTransfer.getData("text") || "");
 console.log('on drop', 'id', itemID);
 
-    let item: Task = tasks.value.find((item) => item.id.toString() == itemID) as Task
+    let item: Task = tasks.value.find((item) => item.id == itemID) as Task
     item.status = list
 
   }

@@ -1,18 +1,26 @@
-import { Controller, Get, Logger } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Body, Controller, Get, Logger, Param, Post } from "@nestjs/common";
+import { PrismaService } from "src/prisma/prisma.service";
+import { CreateTaskDto } from "./dto/create-task.dto";
+import { TasksService } from "./task.service";
 
-@Controller()
+@Controller("api/v1/tasks")
 export class TaskController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly tasksService: TasksService) {}
 
-  @Get('/api/tasks')
-  async tasks() {
-    Logger.log('students');
-    return this.prisma.task.findMany();
+  @Get()
+  async findAll() {
+    return this.tasksService.findAll();
   }
-  @Get('/api/tasks/:id')
-  async getTasks() {
-    Logger.log('students');
-    return this.prisma.task.findMany();
+
+  @Post()
+  async create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.tasksService. findOne(id);
+  }
+
+
 }

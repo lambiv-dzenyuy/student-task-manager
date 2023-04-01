@@ -1,4 +1,13 @@
-export interface Task { id: number; title: string; description: string; status: string; completed : boolean; }
+export interface Task {
+  id: string;
+  title: string;
+  description?: string | undefined;
+  status: string;
+  priority: string;
+  completed?: boolean | undefined;
+  studentId: number;
+  projectId: string;
+}
 
 export interface Meta {
   totalCount: number;

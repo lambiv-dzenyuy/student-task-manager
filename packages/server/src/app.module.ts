@@ -8,7 +8,7 @@ import { ProjectsModule } from './modules/projects/projects.module';
 
 @Module({
   imports: [PrismaModule, StudentModule, TaskModule, ProjectsModule],
-  controllers: [StudentController, TaskController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
