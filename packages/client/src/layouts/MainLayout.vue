@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
 
-    <q-drawer class="bg-primary text-white rounded-borders q-ma-sm" show-if-above bordered>
+    <q-drawer class="bg-primary text-white rounded-borders" show-if-above bordered>
 
       <q-list>
         <q-item>

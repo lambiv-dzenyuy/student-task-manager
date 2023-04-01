@@ -6,7 +6,7 @@
   {{  tasks[0].title}}
     </h2>
 
-  <!-- <div class="fit row inline wrap justify-around items-stretch"> -->
+  <div class="fit row inline wrap justify-around items-stretch">
     <div
 class="drop-zone " @drop="onDrop($event, 'Done')"
     @dragenter.prevent @dragover.prevent>
@@ -22,6 +22,7 @@ v-for="item in getList('In Progress')" :key="item.id" draggable="true" class="dr
         @dragstart="startDrag($event, item)">
         {{ item.title }}
       </div>
+    </div>
     </div>
   </div>
 </q-page>
