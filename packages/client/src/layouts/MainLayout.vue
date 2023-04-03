@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
 
     <q-drawer class="bg-primary text-white rounded-borders" show-if-above bordered>
 
@@ -58,11 +58,12 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <Suspense>
+    <q-page-container >
+
       <router-view />
-      </Suspense>
+
     </q-page-container>
+
   </q-layout>
 </template>
 
@@ -81,11 +82,10 @@ import { RouteLocationRaw } from 'vue-router';
 
 
 
-// TODO: use correct icons from Flat icons instead of MDI
 type SideBarItem = { label: string; icon: string; to?: RouteLocationRaw };
 const sidebarListItems: SideBarItem[] = [
   { label: 'Dashboard', icon: mdiViewDashboard, to: '/' },
-  { label: 'Projects/Categories', icon: mdiFileTreeOutline },
+  { label: 'Projects', icon: mdiFileTreeOutline },
   { label: 'My Tasks', icon: mdiDomain },
   { label: 'Create New Task', icon: mdiPlus },
 
@@ -101,3 +101,9 @@ const sidebarListItems: SideBarItem[] = [
 
 
 </script>
+
+<style lang="scss" scoped>
+.q-page-container{
+  background-color: #E5E5E5 !important;
+}
+</style>
