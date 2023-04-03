@@ -23,8 +23,8 @@ export class TasksService {
     return this.prisma.task.findUnique({ where: { id: id } });
   }
 
-  update(id: string, updateTaskDto: UpdateTaskDto) {
-    return this.prisma.task.update({ data : updateTaskDto, where: {  id } });
+  update(updateTaskDto: UpdateTaskDto) {
+    return this.prisma.task.update({ data : updateTaskDto, where: { id : updateTaskDto.id } });
   }
 
   findStudentProjectTasks( studentId :  number, projectId : string) {
