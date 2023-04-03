@@ -1,58 +1,127 @@
-<!-- eslint-disable vue/block-lang -->
-<template>
+<template >
   <q-page>
-  <div class="container-fluid">
-    <h2 class="m-5">
-  {{  tasks[0].title}}
-    </h2>
+<div class="q-py-lg col">
+ <div class="q-mx-lg text-h5">Assignments</div>
 
-  <div class="fit row inline wrap justify-around items-stretch">
+  <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
+
+
+    <q-card
+
+flat bordered
+class="rounded-borders bg-white   drop-zone"
+    @drop="onDrop($event, 'To-Do')"
+    @dragenter.prevent @dragover.prevent >
+    <q-card-section>
+        <div class="text-h6">To-Do</div>
+    </q-card-section>
+    <q-scroll-area class="fit">
+    <q-card
+      v-for="item in getList('To-Do')"
+      :key="item.id"
+        bordered
+        flat
+        draggable="true"
+        class="task-card q-ma-sm "
+        @dragstart="startDrag($event, item)" >
+
+
+
+        <q-card-section>
+
+            <q-btn
+            flat
+            dense
+            rounded
+            disable
+            size="sm"
+            :color="item.priority==='high' ? 'white' : 'black' "
+            :class="`text-capitalize bg-${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`">
+            {{ item.priority }}
+          </q-btn>
+
+
+            <span class="text-weight-medium">{{ item.description }}</span>
+
+
+
+            <span>Due day: </span>{{ item.createdAt }}
+
+
+        </q-card-section>
+
+
+      </q-card>
+
+    </q-scroll-area>
+
+
+    </q-card>
+
+
+
+  <div class="drop-zone " @drop="onDrop($event, 'In Progress')" @dragenter.prevent @dragover.prevent>
     <div
-class="drop-zone " @drop="onDrop($event, 'Done')"
-    @dragenter.prevent @dragover.prevent>
-      <div
-v-for="item in getList('Done')" :key="item.id" draggable="true" class="drag-el text-red"
-        @dragstart="startDrag($event, item)">
-        {{ item.title }}
-      </div>
-    </div>
-    <div class="drop-zone " @drop="onDrop($event, 'In Progress')" @dragenter.prevent @dragover.prevent>
-      <div
-v-for="item in getList('In Progress')" :key="item.id" draggable="true" class="drag-el"
-        @dragstart="startDrag($event, item)">
-        {{ item.title }}
-      </div>
-    </div>
+v-for="item in getList('In Progress')" :key="item.id" draggable="true" class="drag-el bg-accent q-ma-xl"
+      @dragstart="startDrag($event, item)">
+      {{ item.title }}
     </div>
   </div>
+  <div class="drop-zone " @drop="onDrop($event, 'Done')" @dragenter.prevent @dragover.prevent>
+    <div
+v-for="item in getList('Done')" :key="item.id" draggable="true" class="drag-el bg-accent q-ma-xl"
+      @dragstart="startDrag($event, item)">
+      {{ item.title }}
+    </div>
+  </div>
+  </div>
+
+
+</div>
 </q-page>
 </template>
 
 
-<script lang="ts"  setup>
+
+<script lang="ts" setup >
 import { api } from 'src/boot/axios';
-import { ref } from 'vue';
+import { onBeforeMount, onErrorCaptured, ref } from 'vue';
 import { Task } from '../components/models'
 
 
 
 const tasks = ref<Task[]>([])
 
- await api.get('tasks').then(res => {
+  api.get('tasks').then(res => {
   tasks.value = res.data;
   console.log(res.data);
 
 });
 
+const error = ref<Error | null>(null)
+onErrorCaptured(e => {
 
+  error.value = e
+  return false
+})
 
-function getList(list: string) {
+onBeforeMount(async  ()=>{
+  api.get('tasks').then(res => {
+  tasks.value = res.data;
+  console.log(res.data);
+
+});
+})
+
+  function getList(list: string) {
   return tasks.value.filter(item => {
     console.log(item.status);
 
     return item.status == list})
 
 }
+
+
 function startDrag(event:
   DragEvent, item : Task) {
   if (event.dataTransfer) {
@@ -71,13 +140,19 @@ console.log('on drop', 'id', itemID);
 
     let item: Task = tasks.value.find((item) => item.id == itemID) as Task
     item.status = list
+    api.patch('tasks', item )
 
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
-.drop_zone {
-  overflow: auto; min-width: 300; max-width: 300;
+.drop-zone{
+  height: 80vh;
+  width: 350px;
+}
+.q-scroll-area{
+  height: 60vh;
 }
 </style>
