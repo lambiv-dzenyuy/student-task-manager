@@ -7,10 +7,7 @@ export interface Task {
   completed?: boolean | undefined;
   studentId: number;
   projectId: string;
+  endDate?: Date;
+  startDate?: Date;
+  createdAt?: Date;
 }
-
-export interface Meta {
-  totalCount: number;
-}
-
-export interface Todo { id: number; value: string; list: string; }
