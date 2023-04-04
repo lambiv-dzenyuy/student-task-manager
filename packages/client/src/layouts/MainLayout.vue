@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <q-drawer class="bg-primary text-white rounded-borders" show-if-above bordered>
+    <q-drawer :width="260" class="bg-primary text-white rounded-borders" show-if-above bordered>
 
       <q-list>
         <q-item>
@@ -27,7 +27,7 @@
             v-for="item in sidebarListItems"
             :key="item.label"
             clickable
-            active-class="text-accent"
+            exact-active-class="text-accent"
             :to="item.to"
           >
             <q-item-section avatar>
@@ -41,14 +41,29 @@
           <q-separator class="q-mx-md" spaced="lg" />
 
           <q-item>
-            <q-item-section class="text-weight-bold"> Settings </q-item-section>
+            <q-item-section class="text-weight-bold text-white"> Settings </q-item-section>
           </q-item>
           <q-item  clickable>
-            <q-item-section avatar>
-              <q-btn flat dense  />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label></q-item-label>
+
+             <q-item-section>
+              <q-select
+
+    v-model="locale"
+    :options="localeOptions"
+    label="Language"
+    dense
+    filled
+    outlined
+    bg-color="white"
+    square
+    emit-value
+    map-options
+
+width="150px"
+    options-dense
+    class="fit text-accent"
+
+  />
             </q-item-section>
           </q-item>
         </q-list>
@@ -76,7 +91,7 @@ import {
 
 mdiPlus,
 } from '@quasar/extras/mdi-v6';
-// import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n';
 import { RouteLocationRaw } from 'vue-router';
 
 
@@ -85,7 +100,7 @@ import { RouteLocationRaw } from 'vue-router';
 type SideBarItem = { label: string; icon: string; to?: RouteLocationRaw };
 const sidebarListItems: SideBarItem[] = [
   { label: 'Dashboard', icon: mdiViewDashboard, to: '/' },
-  { label: 'Projects', icon: mdiFileTreeOutline },
+  { label: 'Projects', icon: mdiFileTreeOutline , to : 'projects'},
   { label: 'My Tasks', icon: mdiDomain },
   { label: 'Create New Task', icon: mdiPlus },
 
@@ -93,11 +108,11 @@ const sidebarListItems: SideBarItem[] = [
 
 
 
-// const { locale } = useI18n({ useScope: 'global' });
-// const localeOptions = [
-//   { value: 'en', label: 'English' },
-//   { value: 'fr', label: 'French' },
-// ];
+const { locale } = useI18n({ useScope: 'global' });
+const localeOptions = [
+  { value: 'en', label: 'English' },
+  { value: 'fr', label: 'French' },
+];
 
 
 </script>
@@ -105,5 +120,8 @@ const sidebarListItems: SideBarItem[] = [
 <style lang="scss" scoped>
 .q-page-container{
   background-color: #E5E5E5 !important;
+}
+.q-select{
+  width: 150px;
 }
 </style>
