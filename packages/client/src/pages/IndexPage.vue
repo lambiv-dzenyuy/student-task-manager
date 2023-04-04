@@ -1,15 +1,14 @@
 <template >
   <q-page>
 <div class="q-py-lg col">
- <div class="q-mx-lg text-h5">Assignments</div>
+ <div class="q-mx-lg text-h5">{{ $t('assignments') }}</div>
 
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
 
 
     <q-card
-
-flat bordered
-class="rounded-borders bg-white   drop-zone"
+    flat bordered
+    class="rounded-borders bg-white   drop-zone"
     @drop="onDrop($event, 'To-Do')"
     @dragenter.prevent @dragover.prevent >
     <q-card-section>
