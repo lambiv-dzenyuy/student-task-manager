@@ -9,5 +9,15 @@ export interface Task {
   projectId: string;
   endDate?: Date;
   startDate?: Date;
-  createdAt?: Date;
+  createdAt: Date;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  description?: string | undefined;
+  studentId: number;
+  endDate?: Date;
+  startDate?: Date;
+  createdAt: Date;
 }
