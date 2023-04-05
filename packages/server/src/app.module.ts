@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { StudentModule } from './modules/students/student.module';
-import { StudentController } from './modules/students/students.controller';
-import { TaskController } from './modules/tasks/task.controller';
 import { TaskModule } from './modules/tasks/task.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProjectsModule } from './modules/projects/projects.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { StudentModule } from './modules/users/student.module';
 
 @Module({
-  imports: [PrismaModule, StudentModule, TaskModule, ProjectsModule],
+  imports: [PrismaModule, StudentModule, TaskModule, ProjectsModule, AuthModule],
   controllers: [],
   providers: [],
 })
