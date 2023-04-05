@@ -1,7 +1,7 @@
 <template >
   <q-page>
 <div class="q-py-lg col">
- <div class="q-mx-lg text-h5">{{ $t('assignments') }}</div>
+ <div class="q-mx-lg text-h5">{{ $t('assignments') }}{{ auth.currentUserId }}</div>
 
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
 
@@ -212,7 +212,9 @@ import { mdiPlus } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
 import { onBeforeMount, onErrorCaptured, ref } from 'vue';
 import { Task } from '../components/models'
+import { useAuthStore } from 'src/stores/auth';
 
+const auth = useAuthStore()
 
 
 const tasks = ref<Task[]>([])
