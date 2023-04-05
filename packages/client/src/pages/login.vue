@@ -55,11 +55,12 @@
 
           <q-card-actions class="q-px-lg">
             <q-btn
-                   unelevated
-                   size="lg"
-                   color="secondary"
-                   class="full-width text-white text-size-md text-capitalize"
-                     label="Login"                     />
+                  unelevated
+                  size="lg"
+                  color="secondary"
+                  class="full-width text-white text-size-md text-capitalize"
+                  label="Login"
+                  @click="submit"                      />
           </q-card-actions>
           <q-card-section
 
@@ -75,10 +76,25 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
+import { api } from 'src/boot/axios';
 import { ref } from 'vue';
 
 const password = ref('')
 const email = ref('')
+
+const router = useRouter();
+
+function submit(){
+  api.post('auth/login',
+  {email : email.value, password : password.value})
+  .then(response => {
+      if(response.status >=200 && response.status <300){
+        router.push({name: 'dashboard'})
+      }
+
+  })
+}
 </script>
 
 <style lang="scss" scoped>
