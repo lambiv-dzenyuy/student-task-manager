@@ -1,47 +1,86 @@
 <template>
-  <q-dialog ref="dialogRef" @hide="onDialogHide">
-    <q-card class="q-dialog-plugin">
-      <!--
-        ...content
-        ... use q-card-section for it?
-      -->
 
-      <!-- buttons example -->
-      <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
-        <q-btn color="primary" label="Cancel" @click="onDialogCancel" />
+    <q-card class="q-dialog-plugin rounded-borders">
+      <q-card-section>
+
+
+<q-form class="q-px-sm ">
+  <q-input
+
+    v-model="projectDetails.title"
+    square
+    outlined
+    clearable
+type="text"
+class="text-red q-pa-md"
+label="Title"
+
+>
+</q-input>
+<q-input
+
+v-model="projectDetails .description"
+square
+outlined
+clearable
+type="textarea"
+class="text-red q-pa-md"
+label="Description"
+
+>
+
+</q-input>
+  <q-input
+
+           v-model="projectDetails.title"
+           square
+           outlined
+           clearable
+           type="date"
+           class="text-red q-pa-md"
+           label="Start Date"
+
+           >
+
+  </q-input>
+
+
+  <q-input
+
+           v-model="projectDetails .title"
+           square
+           clearable
+           lazy-rules
+           bordered
+           outlined
+           class="text-red q-pa-md"
+           type="date"
+           label="End Date">
+
+
+  </q-input>
+
+
+</q-form>
+</q-card-section>
+
+      <q-card-actions align="center">
+        <q-btn color="secondary" label="save"  />
+        <q-btn color="secondary" label="Cancel" @click="$emit('open-dialog', true)" />
       </q-card-actions>
     </q-card>
-  </q-dialog>
 </template>
 
 <script lang='ts' setup>
-import { useDialogPluginComponent } from 'quasar'
+import { Project } from './models';
+import { ref } from 'vue';
 
-const props = defineProps({
-  // ...your custom props
-})
 
-defineEmits([
-  // REQUIRED; need to specify some events that your
-  // component will emit through useDialogPluginComponent()
-  ...useDialogPluginComponent.emits
-])
+defineEmits<{
+  (e: 'open-dialog', va: boolean): boolean
+  (e: 'update', value: string): void
+}>()
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = useDialogPluginComponent()
-// dialogRef      - Vue ref to be applied to QDialog
-// onDialogHide   - Function to be used as handler for @hide on QDialog
-// onDialogOK     - Function to call to settle dialog with "ok" outcome
-//                    example: onDialogOK() - no payload
-//                    example: onDialogOK({ /*...*/ }) - with payload
-// onDialogCancel - Function to call to settle dialog with "cancel" outcome
+const projectDetails = ref<Project>({} as Project)
 
-// this is part of our example (so not required)
-function onOKClick () {
-  // on OK, it is REQUIRED to
-  // call onDialogOK (with optional payload)
-  onDialogOK()
-  // or with payload: onDialogOK({ ... })
-  // ...and it will also hide the dialog automatically
-}
 </script>
