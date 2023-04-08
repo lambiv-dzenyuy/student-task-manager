@@ -4,7 +4,11 @@
       {{ $t('project') }}
     </div>
     <div class="flex justify-end q-mx-md">
-      <q-btn class="bg-secondary text-white text-capitalize" label="Add Project" />
+      <q-btn class="bg-secondary text-white text-capitalize" label="Add Project" @click="openDialog=!openDialog" />
+
+      <q-dialog v-model="openDialog">
+      <CreateProject @open-dialog="()=> openDialog=!openDialog" />
+    </q-dialog>
     </div>
     <q-card class="q-mx-md q-mt-md  product-card text-size-12 bg-white rounded-borders">
       <q-list padding class="fit">
@@ -107,14 +111,27 @@ import { mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
 import { Project } from '../components/models'
 import {  ref, onBeforeMount } from 'vue';
+import { useAuthStore } from 'src/stores/auth';
+import { useRouter } from 'vue-router'
+import CreateProject from 'src/components/create-project.vue';
 
 
+const router = useRouter()
+
+
+const openDialog=ref(false)
 const search = ref('')
 const projects = ref<Project[]>([])
 
-
+const auth = useAuthStore()
 onBeforeMount(async  ()=>{
-  api.get('projects').then(res => {
+  if(!auth.isAuthenticated){
+    router.push({name : 'login'})
+  }
+  api.get('projects',  { headers: {
+           Authorization:'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }}).then(res => {
   projects.value = res.data;
 projects.value.map(item => console.log((new Date(item.createdAt)).toDateString()))
 
