@@ -79,7 +79,7 @@ module.exports = {
          'error',
          { script: { lang: 'ts' }, style: { lang: 'scss' } },
        ],
-       'vue/component-name-in-template-casing': ['error'],
+       'vue/component-name-in-template-casing': ['warn'],
        'vue/custom-event-name-casing': 'warn',
        'vue/html-comment-content-spacing': 'warn',
        'vue/html-comment-indent': 'warn',
@@ -98,7 +98,7 @@ module.exports = {
        'vue/require-name-property': 'warn',
        'vue/no-empty-component-block': 'warn',
        'vue/v-for-delimiter-style': 'warn',
-       'vue/v-on-event-hyphenation': 'error',
+       'vue/v-on-event-hyphenation': 0,
        'vue/multi-word-component-names': ['error', {
         'ignores': ['default']
       }],
