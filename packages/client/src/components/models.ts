@@ -21,3 +21,11 @@ export interface Project {
   startDate?: Date;
   createdAt: Date;
 }
+
+export interface Student {
+  id       : number;
+  firstName: string;
+  lastName : string;
+  avatar   : string;
+  email    : string ;
+}
