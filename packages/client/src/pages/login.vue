@@ -5,7 +5,11 @@
 
     <div class="row q-pa-lg">
       <div class="text-message-section">
-
+  <div class="q-px-auto col text-center text-white text-h3">
+<p>Welcome Back Student;</p>
+<p>Continue Tracking</p>
+<p>Your Tasks</p>
+  </div>
 
 </div>
       <div class="col  ">
@@ -79,6 +83,9 @@
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios';
 import { ref } from 'vue';
+import { useAuthStore } from 'src/stores/auth';
+
+const auth = useAuthStore()
 
 const password = ref('')
 const email = ref('')
@@ -88,10 +95,13 @@ const router = useRouter();
 function submit(){
   api.post('auth/login',
   {email : email.value, password : password.value})
-  .then(response => {
-      if(response.status >=200 && response.status <300){
-        router.push({name: 'dashboard'})
+  .then(response  => {
+    console.log(response);
+
+      if(response.status >=200 && response.status <300 && response.data.access_token && response.data.userData){
+        auth.set(response.data.access_token, response.data.userData)
       }
+      router.push({name: 'dashboard'})
 
   })
 }
