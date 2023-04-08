@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia';
+import { Student } from 'src/components/models';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
+    /** @type {{ text: st} */
     auth: {
       token : '',
-      userId: 1
+       authUser: null as Student | null
     }
   }),
 
@@ -12,14 +14,17 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated (state) {
       return state.auth.token.length > 0 ;
     },
-    currentUserId(state){
-      return state.auth.userId
+    authUser(state){
+      return state.auth.authUser
+    },
+    token(state){
+      return state.auth.token;
     }
   },
 
   actions: {
-    set (token: string, userId: number) {
-      this.auth = {token : token, userId  : userId};
+    set (token: string, user: Student) {
+      this.auth = {token : token, authUser  : user};
     }
   }
 });
