@@ -32,7 +32,7 @@ export class TaskController {
 
   @Get(':studentId/:projectId')
   findStudentTasksByProjectId(@Param() params : GetProjectTasksDto){
-    return this.tasksService.findStudentProjectTasks(params.studentId, params.projectId)
+    return this.tasksService.findStudentProjectTasks(+params.studentId, params.projectId)
   }
 
 }
