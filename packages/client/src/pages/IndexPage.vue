@@ -1,7 +1,7 @@
 <template >
   <q-page>
 <div class="q-py-lg col">
- <div class="q-mx-lg text-h5">{{ $t('assignments') }}{{ auth.currentUserId }}</div>
+ <div class="q-mx-lg text-h5">{{ $t('assignments') }}{{ auth.isAuthenticated}}</div>
 
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
 
@@ -214,14 +214,19 @@ import { onBeforeMount, onErrorCaptured, ref } from 'vue';
 import { Task } from '../components/models'
 import { useAuthStore } from 'src/stores/auth';
 
+
 const auth = useAuthStore()
 
 
 const tasks = ref<Task[]>([])
 
-  api.get('tasks').then(res => {
+  api.get(`tasks/${auth.authUser?.id}/39e2856b-040c-4eed-9dbf-524cf2c07f20`,  {
+        headers: {
+           Authorization:'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }
+      }).then(res => {
   tasks.value = res.data;
-  console.log(res.data);
 
 });
 

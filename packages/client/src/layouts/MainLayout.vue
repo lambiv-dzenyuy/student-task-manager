@@ -17,27 +17,67 @@
 
         <q-list
           padding
-          class="text-grey-8 text-weight-medium text-size-14 line-height-20"
+          class="text-white text-weight-medium text-size-14 line-height-20"
         >
 
 
           <q-separator class="q-mx-md q-mb-md" />
 
           <q-item
-            v-for="item in sidebarListItems"
-            :key="item.label"
+
             clickable
             exact-active-class="text-accent"
-            :to="item.to"
+            to="/"
           >
             <q-item-section avatar>
-              <q-btn flat dense :icon="item.icon" />
+              <q-btn flat dense :icon="mdiViewDashboard" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ item.label }}</q-item-label>
+              <q-item-label>Dashboard</q-item-label>
             </q-item-section>
           </q-item>
+          <q-item
 
+            clickable
+            exact-active-class="text-white"
+            to="projects"
+          >
+            <q-item-section avatar>
+              <q-btn flat dense :icon="mdiProjector" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Projects</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item
+
+clickable
+exact-active-class="text-white"
+to="/"
+>
+<q-item-section avatar>
+  <q-btn flat dense :icon="mdiDomain" />
+</q-item-section>
+<q-item-section>
+  <q-item-label>My Tasks</q-item-label>
+</q-item-section>
+</q-item>
+<q-item
+
+clickable
+exact-active-class="text-white"
+@click="openDialog=!openDialog"
+>
+<q-item-section avatar>
+  <q-btn flat dense :icon="mdiPlus" />
+</q-item-section>
+<q-item-section>
+  <q-item-label>Create New Task</q-item-label>
+  <q-dialog v-model="openDialog">
+  <createTask  @open-create-task-dialog="()=> openDialog=!openDialog" />
+  </q-dialog>
+</q-item-section>
+</q-item>
           <q-separator class="q-mx-md" spaced="lg" />
 
           <q-item>
@@ -87,12 +127,14 @@ import {
   mdiDomain,
 
   mdiViewDashboard,
-  mdiFileTreeOutline,
 
 mdiPlus,
+mdiProjector,
 } from '@quasar/extras/mdi-v6';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { RouteLocationRaw } from 'vue-router';
+import createTask from 'src/components/create-task.vue';
 
 
 
@@ -100,13 +142,14 @@ import { RouteLocationRaw } from 'vue-router';
 type SideBarItem = { label: string; icon: string; to?: RouteLocationRaw };
 const sidebarListItems: SideBarItem[] = [
   { label: 'Dashboard', icon: mdiViewDashboard, to: '/' },
-  { label: 'Projects', icon: mdiFileTreeOutline , to : 'projects'},
+  { label: 'Projects', icon: mdiProjector , to : 'projects'},
   { label: 'My Tasks', icon: mdiDomain },
   { label: 'Create New Task', icon: mdiPlus },
 
 ];
 
 
+const openDialog = ref(false)
 
 const { locale } = useI18n({ useScope: 'global' });
 const localeOptions = [
