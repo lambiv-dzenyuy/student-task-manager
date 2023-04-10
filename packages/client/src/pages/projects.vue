@@ -138,13 +138,6 @@ projects.value.map(item => console.log((new Date(item.createdAt)).toDateString()
 });
 })
 
-const thumbStyle = {
-        right: '4px',
-        borderRadius: '7px',
-        backgroundColor: '#000235',
-        width: '4px',
-        opacity: 0.75
-      };
 
 
 </script>
