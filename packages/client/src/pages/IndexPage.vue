@@ -2,22 +2,18 @@
   <q-page>
 <div class="q-py-lg col">
  <div class="q-mx-lg text-h5">{{ $t('assignments') }}{{ auth.isAuthenticated}}</div>
-
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
-
-
     <q-card
     flat bordered
     class="rounded-borders bg-white   drop-zone"
     @drop="onDrop($event, 'To-Do')"
     @dragenter.prevent @dragover.prevent >
     <q-card-section>
-        <div class="text-h6">To-Do</div>
+      <div class="text-h6">To-Do</div>
     </q-card-section>
     <q-scroll-area
       visible
       :vertical-thumb-style="thumbStyle"
-
       style="height: 84%">
     <q-card
       v-for="item in getList('To-Do')"
@@ -27,52 +23,28 @@
         draggable="true"
         class="task-card q-ma-sm "
         @dragstart="startDrag($event, item)" >
-
-
-
-        <q-card-section>
-
-            <q-btn
-            flat
-            dense
-            rounded
-            disable
-            size="sm"
-            :color="item.priority==='high' ? 'white' : 'black' "
-            :class="`text-capitalize bg-${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`">
+        <q-card-section class="column">
+          <q-badge
+          :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
             {{ item.priority }}
-          </q-btn>
+      </q-badge>
 
-
-            <span class="text-weight-medium">{{ item.description }}</span>
-
-
-
-            <span>Created: </span>{{
-             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24))
-
-            }}
-            <span>day ago </span>
+             <span class="text-weight-medium">{{ item.description }}</span>
+            <span><span>Created: </span>{{
+             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
+            <span>day ago </span></span>
         </q-card-section>
-
-
       </q-card>
-
     </q-scroll-area>
-
     <q-card-actions class="q-pa-none q-ma-none text-secondary ">
         <q-btn flat dense class="text-capitalize"  :icon="mdiPlus">
           New Item
-
         </q-btn>
       </q-card-actions>
     </q-card>
-
-
     <q-card
-
-flat bordered
-class="rounded-borders bg-white   drop-zone"
+    flat bordered
+    class="rounded-borders bg-white   drop-zone"
     @drop="onDrop($event, 'In Progress')"
     @dragenter.prevent @dragover.prevent >
     <q-card-section>
@@ -81,7 +53,6 @@ class="rounded-borders bg-white   drop-zone"
     <q-scroll-area
       visible
       :vertical-thumb-style="thumbStyle"
-
       style="height: 84%">
     <q-card
       v-for="item in getList('In Progress')"
@@ -91,52 +62,27 @@ class="rounded-borders bg-white   drop-zone"
         draggable="true"
         class="task-card q-ma-sm "
         @dragstart="startDrag($event, item)" >
-
-
-
-        <q-card-section>
-
-            <q-btn
-            flat
-            dense
-            rounded
-            disable
-            size="sm"
-            :color="item.priority==='high' ? 'white' : 'black' "
-            :class="`text-capitalize bg-${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`">
+        <q-card-section class="column">
+          <q-badge
+          :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
             {{ item.priority }}
-          </q-btn>
-
-
-            <span class="text-weight-medium">{{ item.description }}</span>
-
-
-
-            <span>Created: </span>{{
-             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24))
-
-            }}
-            <span>day ago </span>
+      </q-badge>
+      <span class="text-weight-medium">{{ item.description }}</span>
+            <span><span>Created: </span>{{
+             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
+            <span>day ago </span></span>
         </q-card-section>
-
-
       </q-card>
-
     </q-scroll-area>
-
     <q-card-actions class="q-pa-none q-ma-none text-secondary ">
         <q-btn flat dense class="text-capitalize"  :icon="mdiPlus">
           New Item
-
         </q-btn>
       </q-card-actions>
     </q-card>
-
-
     <q-card
-
-flat bordered
-class="rounded-borders bg-white   drop-zone"
+    flat bordered
+    class="rounded-borders bg-white   drop-zone"
     @drop="onDrop($event, 'Done')"
     @dragenter.prevent @dragover.prevent >
     <q-card-section>
@@ -145,7 +91,6 @@ class="rounded-borders bg-white   drop-zone"
     <q-scroll-area
       visible
       :vertical-thumb-style="thumbStyle"
-
       style="height: 84%">
     <q-card
       v-for="item in getList('Done')"
@@ -155,51 +100,24 @@ class="rounded-borders bg-white   drop-zone"
         draggable="true"
         class="task-card q-ma-sm "
         @dragstart="startDrag($event, item)" >
-
-
-
-        <q-card-section>
-
-            <q-btn
-            flat
-            dense
-            rounded
-            disable
-            size="sm"
-            :color="item.priority==='high' ? 'white' : 'black' "
-            :class="`text-capitalize bg-${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`">
+        <q-card-section class="column">
+          <q-badge
+          :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
             {{ item.priority }}
-          </q-btn>
-
-
-            <span class="text-weight-medium">{{ item.description }}</span>
-
-
-
-            <span>Created: </span>{{
-             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24))
-
-            }}
-            <span>day ago </span>
+      </q-badge>
+      <span class="text-weight-medium">{{ item.description }}</span>
+            <span><span>Created: </span>{{
+             Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
+            <span>day ago </span></span>
         </q-card-section>
-
-
       </q-card>
-
     </q-scroll-area>
-
     <q-card-actions class="q-pa-none q-ma-none text-secondary ">
         <q-btn flat dense class="text-capitalize"  :icon="mdiPlus">
           New Item
-
         </q-btn>
       </q-card-actions>
     </q-card>
-
-
-
-
-
 </div>
 </div>
 </q-page>
@@ -272,7 +190,11 @@ console.log('on drop', 'id', itemID);
 
     let item: Task = tasks.value.find((item) => item.id == itemID) as Task
     item.status = list
-    api.patch('tasks', item )
+    api.patch('tasks', item,
+      {headers: {
+           Authorization:'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }} )
 
   }
 }
@@ -282,15 +204,7 @@ const thumbStyle = {
         backgroundColor: '#000235',
         width: '4px',
         opacity: 0.75
-      };
-
-    const   barStyle ={
-        right: '2px',
-        borderRadius: '9px',
-        backgroundColor: '#027be3',
-        width: '8px',
-        opacity: 0.2
-      }
+};
 </script>
 
 <style lang="scss" scoped>
