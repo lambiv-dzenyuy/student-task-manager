@@ -57,12 +57,13 @@
             </q-form>
           </q-card-section>
 
-          <q-card-actions class="q-px-lg">
+          <q-card-actions class="align-center column q-px-xl">
             <q-btn
                   unelevated
+                  dense
                   size="lg"
                   color="secondary"
-                  class="full-width text-white text-size-md text-capitalize"
+                  class="fit justify-center text-white text-size-md text-capitalize"
                   label="Login"
                   @click="submit"                      />
           </q-card-actions>
