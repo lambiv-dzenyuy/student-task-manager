@@ -7,8 +7,14 @@ module.exports = {
   // https://eslint.vuejs.org/user-guide/#how-to-use-a-custom-parser
   // Must use parserOptions instead of "parser" to allow vue-eslint-parser to keep working
   // `parser: 'vue-eslint-parser'` is already included with any 'plugin:vue/**' config and should be omitted
+  'parser': 'vue-eslint-parser',
   parserOptions: {
     parser: require.resolve('@typescript-eslint/parser'),
+    'sourceType': 'module',
+    'vueFeatures': {
+      'filter': true,
+      'interpolationAsNonHTML': false,
+    },
     extraFileExtensions: [ '.vue' ]
   },
 
@@ -134,6 +140,5 @@ module.exports = {
       files: ['**/*.spec.{js,ts}'],
 
     },
-  ],
-
+  ]
 }
