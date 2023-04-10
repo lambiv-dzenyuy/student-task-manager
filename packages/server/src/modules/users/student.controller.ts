@@ -2,6 +2,8 @@ import { Body, Controller, Get, HttpCode, Logger, Param, Patch, Post, Unauthoriz
 import { JwtService } from "@nestjs/jwt";
 import { retry } from "rxjs";
 import { StudentService} from "./student.service";
+import { Public } from "../auth/skip.auth";
+import { CreateStudentDto } from "./dto/create-student.dto";
 
 @Controller("api/v1/user")
 export class StudentController {
@@ -20,10 +22,11 @@ export class StudentController {
     return this.studentService.findAll();
   }
 
+  @Public()
   @Post()
   @HttpCode(204)
-  create() {
-    return 'This action adds a new cat';
+  create(@Body() studentDto : CreateStudentDto) {
+   return this.studentService.create(studentDto);
   }
 
   @Get(':id')
