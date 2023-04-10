@@ -21,10 +21,10 @@
         >
 
 
-          <q-separator class="q-mx-md q-mb-md" />
+          <q-separator class="q-mx-md q-mb-md" dark/>
 
           <q-item
-
+            class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-accent"
             to="/"
@@ -37,10 +37,10 @@
             </q-item-section>
           </q-item>
           <q-item
-
+          class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-white"
-            to="projects"
+            to="/projects"
           >
             <q-item-section avatar>
               <q-btn flat dense :icon="mdiProjector" />
@@ -50,10 +50,10 @@
             </q-item-section>
           </q-item>
           <q-item
-
+          class="q-mx-md rounded-borders"
 clickable
 exact-active-class="text-white"
-to="/"
+to="tasks"
 >
 <q-item-section avatar>
   <q-btn flat dense :icon="mdiDomain" />
@@ -63,6 +63,8 @@ to="/"
 </q-item-section>
 </q-item>
 <q-item
+
+class="q-mx-md rounded-borders"
 
 clickable
 exact-active-class="text-white"
@@ -78,7 +80,7 @@ exact-active-class="text-white"
   </q-dialog>
 </q-item-section>
 </q-item>
-          <q-separator class="q-mx-md" spaced="lg" />
+          <q-separator class="q-mx-md" spaced="sm" dark/>
 
           <q-item>
             <q-item-section class="text-weight-bold text-white"> Settings </q-item-section>
@@ -94,6 +96,7 @@ exact-active-class="text-white"
     dense
     filled
     outlined
+    rounded
     bg-color="white"
     square
     emit-value
@@ -101,7 +104,7 @@ exact-active-class="text-white"
 
 width="150px"
     options-dense
-    class="fit text-accent"
+    class="fit q-px-md text-accent"
 
   />
             </q-item-section>
