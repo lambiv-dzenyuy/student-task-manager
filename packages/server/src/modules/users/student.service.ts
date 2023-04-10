@@ -19,14 +19,16 @@ export class StudentService {
    return this.prisma.task.findUnique({ where: { id: id } });
  }
  create(createStudentDto : CreateStudentDto ){
-  const checkedStudent =this.findOne(createStudentDto.email)
-  if(checkedStudent) !== && typeof(checkedStudent.) !== Student))
+  
+ 
+try{
+  this.prisma.student.create({
+    data : createStudentDto
+  })
+}
+catch(err){
   throw new HttpException(`Student with id: ${createStudentDto.email} already exist.`, HttpStatus.FORBIDDEN);
-
- else 
- return this.prisma.student.create({
-  data : createStudentDto
-})
+} 
    
   
 }
