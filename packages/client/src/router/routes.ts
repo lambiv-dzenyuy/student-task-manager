@@ -1,6 +1,8 @@
 import MainLayoutVue from 'layouts/MainLayout.vue';
-import IndexPageVue from 'pages/IndexPage.vue';
+import IndexPageVue from 'src/pages/project-tasks.vue';
+import Dashboard from 'src/pages/dashboard.vue';
 import projects from 'pages/projects.vue';
+import ProjectTasks from 'pages/project-tasks.vue';
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
@@ -8,7 +10,9 @@ const routes: RouteRecordRaw[] = [
 
     path: '/view',
     component: MainLayoutVue ,
-    children: [{name: 'dashboard',  path: '', component: IndexPageVue }, {name : 'projects',path : 'projects', component : projects}],
+    children: [{name: 'dashboard',  path: '', component: Dashboard },
+               {name : 'projects',path : 'projects', component : projects},
+               {name : 'project-tasks',path : 'project-tasks/:projectId', component : ProjectTasks}],
   },
   { path: '/',
   component:  () => import('layouts/auth-layout.vue'),
