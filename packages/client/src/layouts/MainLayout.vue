@@ -27,7 +27,7 @@
             class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-accent"
-            to="/"
+            to="/view"
           >
             <q-item-section avatar>
               <q-btn flat dense :icon="mdiViewDashboard" />
@@ -39,8 +39,8 @@
           <q-item
           class="q-mx-md rounded-borders"
             clickable
-            exact-active-class="text-white"
-            to="/projects"
+            exact-active-class="text-accent"
+            to="/view/projects"
           >
             <q-item-section avatar>
               <q-btn flat dense :icon="mdiProjector" />
@@ -52,7 +52,7 @@
           <q-item
           class="q-mx-md rounded-borders"
 clickable
-exact-active-class="text-white"
+exact-active-class="text-accent"
 to="tasks"
 >
 <q-item-section avatar>
@@ -134,24 +134,16 @@ import {
 mdiPlus,
 mdiProjector,
 } from '@quasar/extras/mdi-v6';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { RouteLocationRaw } from 'vue-router';
 import createTask from 'src/components/create-task.vue';
+import { useAuthStore } from 'src/stores/auth';
+import { useRouter } from 'vue-router';
+import { api } from 'src/boot/axios';
+import { appNotify } from 'src/components/notify';
 
 
-
-
-type SideBarItem = { label: string; icon: string; to?: RouteLocationRaw };
-const sidebarListItems: SideBarItem[] = [
-  { label: 'Dashboard', icon: mdiViewDashboard, to: '/' },
-  { label: 'Projects', icon: mdiProjector , to : 'projects'},
-  { label: 'My Tasks', icon: mdiDomain },
-  { label: 'Create New Task', icon: mdiPlus },
-
-];
-
-
+const router= useRouter()
 const openDialog = ref(false)
 
 const { locale } = useI18n({ useScope: 'global' });
@@ -159,6 +151,13 @@ const localeOptions = [
   { value: 'en', label: 'English' },
   { value: 'fr', label: 'French' },
 ];
+const auth = useAuthStore()
+onBeforeMount(async  ()=>{
+  if(!auth.isAuthenticated){
+    router.push({name : 'login'})
+    appNotify.error('Unauthorized User')
+  }
+})
 
 
 </script>

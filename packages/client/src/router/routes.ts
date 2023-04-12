@@ -6,11 +6,11 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
 
-    path: '/',
+    path: '/view',
     component: MainLayoutVue ,
     children: [{name: 'dashboard',  path: '', component: IndexPageVue }, {name : 'projects',path : 'projects', component : projects}],
   },
-  { path: '/auth',
+  { path: '/',
   component:  () => import('layouts/auth-layout.vue'),
   children: [{ name: 'login', path: '', component: () => import('pages/login.vue') },
   { name: 'signup', path: 'signup', component: () => import('pages/signup.vue') }
