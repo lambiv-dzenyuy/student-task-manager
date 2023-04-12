@@ -33,9 +33,6 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
-  // Router.beforeEach((to, from, next) => {
-  //   if (to.name !== 'login' && !isAuthenticated) return next({ name: 'login' })
-  //   else  return next()
-  // })
+
    return Router;
 });
