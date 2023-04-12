@@ -70,8 +70,9 @@
           <q-card-section
 
               class="text-center q-pa-sm">
-            <p  class="text-primary">Forgot Password?</p>
+            <p ><span clickable class=" cursor-pointer text-primary" @click="navigateToRegistration()">create an account?</span></p>
           </q-card-section>
+
         </q-card>
       </div>
     </div>
@@ -105,6 +106,10 @@ function submit(){
       router.push({name: 'dashboard'})
 
   })
+}
+
+function navigateToRegistration(){
+  router.push({name : 'signup'})
 }
 </script>
 
