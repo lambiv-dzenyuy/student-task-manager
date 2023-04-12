@@ -7,7 +7,10 @@
       <q-btn class="bg-secondary text-white text-capitalize" label="Add Project" @click="openDialog=!openDialog" />
 
       <q-dialog v-model="openDialog">
-      <CreateProject @open-dialog="()=> openDialog=!openDialog" />
+      <CreateProject
+      @open-dialog="()=> openDialog=!openDialog"
+      @project="(projectDetails)=>projects.push(projectDetails)"
+      />
     </q-dialog>
     </div>
     <q-card class="q-mx-md q-mt-md  product-card text-size-12 bg-white rounded-borders">
