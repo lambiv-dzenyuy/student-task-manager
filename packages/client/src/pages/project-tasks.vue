@@ -1,7 +1,7 @@
 <template >
   <q-page>
 <div class="q-py-lg col">
- <div class="q-mx-lg text-h5">{{ project.title }}</div>
+ <div v-if="project" class="q-mx-lg text-h5">{{ project.title }}</div>
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
     <q-card
     flat bordered
@@ -128,18 +128,22 @@
 <script lang="ts" setup >
 import { mdiPlus } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
-import { onBeforeMount, onErrorCaptured, ref } from 'vue';
+import { watch, onErrorCaptured, ref } from 'vue';
 import { Project, Task } from '../components/models'
 import { useAuthStore } from 'src/stores/auth';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+
 
 
 const route = useRoute()
-const auth = useAuthStore()
+const router = useRouter()
 
+const auth = useAuthStore()
+console.log('user if is ', auth.authUser?.id, 'project id is', route.params.projectId)
 const tasks = ref<Task[]>([])
 const project = ref<Project>({}as Project)
 
+function fetchData(){
   api.get(`projects/${route.params.projectId}`,  {
         headers: {
            Authorization:'Bearer ' + auth.token,
@@ -147,7 +151,11 @@ const project = ref<Project>({}as Project)
         }
       }).then(res => {
   project.value = res.data;
-  api.get(`tasks/${auth.authUser?.id}/${route.params.projectID}`,  {
+
+
+
+});
+api.get(`tasks/${auth.authUser?.id}/${route.params.projectId}`,  {
         headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
@@ -157,7 +165,37 @@ const project = ref<Project>({}as Project)
 
 });
 
-});
+}
+
+// watch(auth.authUser?.id, async (newId, oldId) => {
+//   if (newId == null) {
+//     router.push({name : 'login'})
+//   }
+//   else {
+//     api.get(`projects/${route.params.projectId}`,  {
+//         headers: {
+//            Authorization:'Bearer ' + auth.token,
+//           'x-access-token': auth.token
+//         }
+//       }).then(res => {
+//   project.value = res.data;
+
+
+
+// });
+// api.get(`tasks/${auth.authUser?.id}/${route.params.projectId}`,  {
+//         headers: {
+//            Authorization:'Bearer ' + auth.token,
+//           'x-access-token': auth.token
+//         }
+//       }).then(res => {
+//   tasks.value = res.data;
+
+// });
+//   }
+// })
+
+fetchData()
 
 
 
@@ -168,13 +206,6 @@ onErrorCaptured(e => {
   return false
 })
 
-onBeforeMount(async  ()=>{
-  api.get('tasks').then(res => {
-  tasks.value = res.data;
-  console.log(res.data);
-
-});
-})
 
   function getList(list: string) {
   return tasks.value.filter(item => {

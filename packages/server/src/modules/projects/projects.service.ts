@@ -3,6 +3,7 @@ import { zip } from "rxjs";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
+import { GetProjectTasksDto } from "../tasks/dto/get-project-tasks.dto";
 
 @Injectable()
 export class ProjectsService {
@@ -33,6 +34,15 @@ export class ProjectsService {
 
   remove(id: string) {
     return this.prisma.project.delete({ where : { id : id }});
+  }
+
+  findStudentProjectTasks(studentId : number, projectId : string){
+    return this.prisma.project.findMany({
+      where : {
+        studentId,
+        id : projectId
+      }
+    })
   }
 }
 

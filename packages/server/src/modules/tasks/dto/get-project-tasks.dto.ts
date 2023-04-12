@@ -3,6 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 export class GetProjectTasksDto {
   @ApiProperty()
 
-  studentId: number;
+  studentId: string;
   projectId: string;
 }
