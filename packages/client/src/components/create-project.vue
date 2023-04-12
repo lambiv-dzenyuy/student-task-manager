@@ -65,7 +65,10 @@ label="Description"
 </q-card-section>
 
       <q-card-actions align="center">
-        <q-btn color="secondary" label="save" @click="submitTask()" />
+        <q-btn color="secondary"
+          label="save" @click="submitTask();
+          $emit('project', projectDetails);
+          $emit('open-dialog', true)" />
         <q-btn color="secondary" label="Cancel" @click="$emit('open-dialog', true)" />
       </q-card-actions>
     </q-card>
@@ -77,11 +80,14 @@ import { Project } from './models';
 import { ref } from 'vue';
 import { api } from 'src/boot/axios';
 import { appNotify } from './notify';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute()
+const router = useRouter()
 const auth = useAuthStore()
 defineEmits<{
   (e: 'open-dialog', va: boolean): boolean
-  (e: 'update', value: string): void
+  (e: 'project', value: Project): Project
 }>()
 
 const projectDetails = ref<Project>({} as Project)
@@ -96,5 +102,6 @@ const projectDetails = ref<Project>({} as Project)
           else appNotify.error
 
 });
+ router.push(route)
 }
 </script>
