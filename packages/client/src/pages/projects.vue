@@ -63,6 +63,7 @@
           :key="project.id"
           class="text-left q-ma-sm justify-between"
           clickable
+          @click="viewProjectTasks(project.id)"
         >
 
 
@@ -128,7 +129,7 @@ onBeforeMount(async  ()=>{
   if(!auth.isAuthenticated){
     router.push({name : 'login'})
   }
-  api.get('projects',  { headers: {
+  api.get(`projects/${auth.authUser?.id}`,  { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
         }}).then(res => {
@@ -137,6 +138,10 @@ projects.value.map(item => console.log((new Date(item.createdAt)).toDateString()
 
 });
 })
+
+function viewProjectTasks(id : string){
+ router.push({name: 'project-tasks', params : { projectId : id}})
+}
 
 
 
