@@ -62,14 +62,12 @@
           >
         -->
         <q-item
-          v-for="project in projects"
+          v-for=" project , index in projects"
           :key="project.id"
           class="text-left q-ma-sm justify-between"
           clickable
-          @click="viewProjectTasks(project.id)"
+          @click="viewProjectTasks(project)"
         >
-
-
           <q-item-section class="col-4">
             <q-item-label class="q-mt-sm">
               {{ project.title }}
@@ -95,11 +93,11 @@
                 class="cursor-pointer"
               />
               <q-btn
-
               flat
-                dense
+              dense
                 round
                 :icon="mdiTrashCan"
+                @click="deleteProject(index)"
               />
             </div>
           </q-item-section>
@@ -125,7 +123,7 @@ const router = useRouter()
 
 const openDialog=ref(false)
 const search = ref('')
-const projects = ref<Project[]>([])
+const projects = ref<Project[]>([] as Project[])
 
 const auth = useAuthStore()
 onBeforeMount(async  ()=>{
@@ -137,13 +135,22 @@ onBeforeMount(async  ()=>{
           'x-access-token': auth.token
         }}).then(res => {
   projects.value = res.data;
-projects.value.map(item => console.log((new Date(item.createdAt)).toDateString()))
+
 
 });
 })
 
-function viewProjectTasks(id : string){
- router.push({name: 'project-tasks', params : { projectId : id}})
+function deleteProject(projectIndex: number){
+  const {id } = projects.value[projectIndex];
+  projects.value.splice(projectIndex, 1)
+  api.delete(`projects/${id}`,  { headers: {
+           Authorization:'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }})
+}
+
+function viewProjectTasks(project: Project){
+ router.push({name: 'project-tasks', params : { projectId : project.id, projectTitle : project.title}})
 }
 
 

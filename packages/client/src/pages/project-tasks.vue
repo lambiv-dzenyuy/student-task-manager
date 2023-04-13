@@ -1,7 +1,7 @@
 <template >
   <q-page>
 <div class="q-py-lg col">
- <div v-if="project" class="q-mx-lg text-h5">{{ project.title }}</div>
+ <div  class="q-mx-lg text-h5">{{ $route.params.projectTitle }}</div>
   <div  class="q-pa-md   fit row no-wrap justify-between items-stretch content-stretch">
     <q-card
     flat bordered
@@ -70,7 +70,7 @@
       <span class="text-weight-medium">{{ item.description }}</span>
             <span><span>Created: </span>{{
              Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
-            <span>day ago </span></span>
+            <span>days ago </span></span>
         </q-card-section>
       </q-card>
     </q-scroll-area>
@@ -123,8 +123,6 @@
 </q-page>
 </template>
 
-
-
 <script lang="ts" setup >
 import { mdiPlus } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
@@ -143,18 +141,8 @@ console.log('user if is ', auth.authUser?.id, 'project id is', route.params.proj
 const tasks = ref<Task[]>([])
 const project = ref<Project>({}as Project)
 
-function fetchData(){
-  api.get(`projects/${route.params.projectId}`,  {
-        headers: {
-           Authorization:'Bearer ' + auth.token,
-          'x-access-token': auth.token
-        }
-      }).then(res => {
-  project.value = res.data;
 
 
-
-});
 api.get(`tasks/${auth.authUser?.id}/${route.params.projectId}`,  {
         headers: {
            Authorization:'Bearer ' + auth.token,
@@ -165,49 +153,9 @@ api.get(`tasks/${auth.authUser?.id}/${route.params.projectId}`,  {
 
 });
 
-}
-
-// watch(auth.authUser?.id, async (newId, oldId) => {
-//   if (newId == null) {
-//     router.push({name : 'login'})
-//   }
-//   else {
-//     api.get(`projects/${route.params.projectId}`,  {
-//         headers: {
-//            Authorization:'Bearer ' + auth.token,
-//           'x-access-token': auth.token
-//         }
-//       }).then(res => {
-//   project.value = res.data;
 
 
-
-// });
-// api.get(`tasks/${auth.authUser?.id}/${route.params.projectId}`,  {
-//         headers: {
-//            Authorization:'Bearer ' + auth.token,
-//           'x-access-token': auth.token
-//         }
-//       }).then(res => {
-//   tasks.value = res.data;
-
-// });
-//   }
-// })
-
-fetchData()
-
-
-
-const error = ref<Error | null>(null)
-onErrorCaptured(e => {
-
-  error.value = e
-  return false
-})
-
-
-  function getList(list: string) {
+function getList(list: string) {
   return tasks.value.filter(item => {
     console.log(item.status);
 
@@ -229,9 +177,6 @@ function startDrag(event:
 function onDrop(event: DragEvent, list: string) {
   if (event.dataTransfer) {
     const itemID = event.dataTransfer?.getData('itemID');
-    // const isThereItemID = JSON.parse(event.dataTransfer.getData("text") || "");
-console.log('on drop', 'id', itemID);
-
     let item: Task = tasks.value.find((item) => item.id == itemID) as Task
     item.status = list
     api.patch('tasks', item,
