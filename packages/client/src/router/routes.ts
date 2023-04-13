@@ -12,7 +12,7 @@ const routes: RouteRecordRaw[] = [
     component: MainLayoutVue ,
     children: [{name: 'dashboard',  path: '', component: Dashboard },
                {name : 'projects',path : 'projects', component : projects},
-               {name : 'project-tasks',path : 'project-tasks/:projectId', component : ProjectTasks}],
+               {name : 'project-tasks',path : 'project-tasks/:projectId/:projectTitle', component : ProjectTasks}],
   },
   { path: '/',
   component:  () => import('layouts/auth-layout.vue'),
