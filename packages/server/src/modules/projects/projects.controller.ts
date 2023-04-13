@@ -32,6 +32,8 @@ export class ProjectsController {
     Logger.log(`student id gotten is of type, ${studentId}`);
     return this.projectsService.findStudentProjects(+studentId);
   }
+
+  
   @Get(':studentId/:projectId')
   async findAllStudentProjectTask(@Param('studentId') getProjectTasksDto: GetProjectTasksDto) {
     Logger.log(`student id gotten is of type, ${getProjectTasksDto.studentId}`);
@@ -39,17 +41,17 @@ export class ProjectsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.projectsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
+  async update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectsService.update(id, updateProjectDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.projectsService.remove(id);
   }
 }
