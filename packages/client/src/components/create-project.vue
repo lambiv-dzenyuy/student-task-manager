@@ -65,7 +65,8 @@ label="Description"
 </q-card-section>
 
       <q-card-actions align="center">
-        <q-btn color="secondary"
+        <q-btn
+          color="secondary"
           label="save" @click="submitTask();
           $emit('project', projectDetails);
           $emit('open-dialog', true)" />

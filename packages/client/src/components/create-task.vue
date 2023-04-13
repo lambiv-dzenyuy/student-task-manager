@@ -15,6 +15,7 @@
          class="text-red q-pa-md"
          :options="projects.map(project => project.id)"
          label="project">
+
       </q-select>
       <q-input
         v-model="taskDetails.title"
