@@ -7,10 +7,10 @@
         <q-item>
           <div class="fit column wrap justify-center items-center content-center">
           <q-avatar class="q-my-lg">
-            <img src="https://cdn.quasar.dev/img/avatar.png">
+            <img :src="currentUser?.avatar">
           </q-avatar>
           <q-item-label>
-            Rameline Ijang
+            {{` ${currentUser?.firstName}  ${currentUser?.lastName}`}}
           </q-item-label>
         </div>
         </q-item>
@@ -159,7 +159,7 @@ onBeforeMount(async  ()=>{
   }
 })
 
-
+const currentUser = auth.authUser
 </script>
 
 <style lang="scss" scoped>
