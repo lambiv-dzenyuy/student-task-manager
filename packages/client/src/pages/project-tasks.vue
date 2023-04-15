@@ -28,7 +28,7 @@
         >
             <q-card-section class="column">
               <q-badge
-              :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
+              :color="`${ item.priority==='High' ? 'negative' : item.priority==='Medium' ? 'accent'  : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='High' ? 'white' : 'black'} q-px-md text-weight-medium`">
                 {{ item.priority }}
             </q-badge>
 
@@ -67,7 +67,7 @@
         @dragstart="startDrag($event, item)" >
         <q-card-section class="column">
           <q-badge
-          :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
+          :color="`${ item.priority==='High' ? 'negative' : item.priority==='Medium' ? 'accent'  : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='High' ? 'white' : 'black'} q-px-md text-weight-medium`">
             {{ item.priority }}
       </q-badge>
       <span class="text-weight-medium">{{ item.description }}</span>
@@ -106,7 +106,7 @@
         @dragstart="startDrag($event, item)" >
         <q-card-section class="column">
           <q-badge
-          :color="`${ item.priority==='high' ? 'negative' : item.priority==='medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='high' ? 'white' : 'black'} q-px-md text-weight-medium`">
+          :color="`${ item.priority==='High' ? 'negative' : item.priority==='Medium' ? 'accent' : 'positive'} q-px-md text-weight-medium`" floating transparent   :class="`text-capitalize text-${item.priority==='High' ? 'white' : 'black'} q-px-md text-weight-medium`">
             {{ item.priority }}
       </q-badge>
       <span class="text-weight-medium">{{ item.description }}</span>
