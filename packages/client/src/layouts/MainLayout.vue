@@ -9,9 +9,31 @@
           <q-avatar class="q-my-lg">
             <img :src="currentUser?.avatar">
           </q-avatar>
-          <q-item-label>
-            {{` ${currentUser?.firstName}  ${currentUser?.lastName}`}}
-          </q-item-label>
+          <q-btn-dropdown
+           split
+          flat
+          no-caps
+          :label="`${auth.authUser?.firstName}  ${auth.authUser?.lastName}`"
+
+    ><q-list>
+        <q-item v-close-popup clickable >
+
+          <q-item-section>
+            <q-item-label>Edith Profile</q-item-label>
+
+          </q-item-section>
+
+        </q-item>
+        <q-item v-close-popup clickable >
+          <q-item-section >
+            <q-item-label>Logout</q-item-label>
+          </q-item-section>
+
+        </q-item>
+
+      </q-list>
+    </q-btn-dropdown>
+
         </div>
         </q-item>
 
@@ -27,7 +49,7 @@
             class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-accent"
-            to="/view"
+            to="/view/dashboard"
           >
             <q-item-section avatar>
               <q-btn flat dense :icon="mdiViewDashboard" />
@@ -53,12 +75,13 @@
           class="q-mx-md rounded-borders"
 clickable
 exact-active-class="text-accent"
-to="tasks"
+to="/view/tasks"
 >
 <q-item-section avatar>
   <q-btn flat dense :icon="mdiDomain" />
 </q-item-section>
 <q-item-section>
+
   <q-item-label>My Tasks</q-item-label>
 </q-item-section>
 </q-item>

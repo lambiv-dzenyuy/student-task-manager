@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
 
     path: '/view',
     component: MainLayoutVue ,
-    children: [{name: 'dashboard',  path: '', component: Dashboard },
+    children: [{name: 'dashboard',  path: 'dashboard', component: Dashboard },
                {name : 'projects',path : 'projects', component : projects},
                {name : 'tasks',path : 'tasks', component : Tasks},
                {name : 'project-tasks',path : 'project-tasks/:projectId/:projectTitle', component : ProjectTasks}],
