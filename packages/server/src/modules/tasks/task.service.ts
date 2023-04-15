@@ -26,6 +26,9 @@ export class TasksService {
   update(updateTaskDto: UpdateTaskDto) {
     return this.prisma.task.update({ data : updateTaskDto, where: { id : updateTaskDto.id } });
   }
+  findStudentTasks(id: number) {
+    return this.prisma.task.findMany({ where : { studentId : id }});
+  }
 
   findStudentProjectTasks( studentId :  number, projectId : string) {
     return this.prisma.task.findMany({ where: { studentId, projectId } });

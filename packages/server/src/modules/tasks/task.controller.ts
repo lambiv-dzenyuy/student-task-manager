@@ -25,9 +25,10 @@ export class TaskController {
     return this.tasksService.update( updateTaskDto)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tasksService. findOne(id);
+ 
+  @Get(':studentId')
+  findStudentTasks(@Param('studentId') studentId: string) {
+    return this.tasksService.findStudentTasks(+studentId);
   }
 
   @Get(':studentId/:projectId')
