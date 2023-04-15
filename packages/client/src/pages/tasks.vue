@@ -37,10 +37,15 @@
         >
 
 
-          <q-item-section class="col-4">
+          <q-item-section class="col-3">
             <q-item-label class="q-mt-sm">
               Title
 
+            </q-item-label>
+          </q-item-section>
+          <q-item-section class="col" >
+            <q-item-label class="q-mt-sm">
+             Project
             </q-item-label>
           </q-item-section>
           <q-item-section class="col" >
@@ -74,9 +79,14 @@
           class="text-left q-ma-sm justify-between"
 
         >
-          <q-item-section class="col-4">
+          <q-item-section class="col-3">
             <q-item-label class="q-mt-sm">
               {{ task.title }}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section class="col" >
+            <q-item-label class="q-mt-sm">
+              {{projects.find(project => project.id === task.projectId)?.title}}
             </q-item-label>
           </q-item-section>
           <q-item-section class="col">
@@ -149,6 +159,7 @@ import { Dialog } from 'quasar';
 const router = useRouter()
 
 const taskDetails = ref<Task>({} as Task)
+const projects = ref<Task []>([])
 const openDialog=ref(false)
 const search = ref('')
 const tasks = ref<Task[]>([] as Task[])
@@ -164,6 +175,12 @@ onBeforeMount(async  ()=>{
         }}).then(res => {
   tasks.value = res.data;
 
+  api.get(`projects/${auth.authUser?.id}`,  { headers: {
+           Authorization:'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }}).then(res => {
+  projects.value = res.data;
+        })
 
 });
 })
