@@ -32,33 +32,19 @@ label="Description"
 </q-input>
   <q-input
 
-           v-model="projectDetails.title"
+           v-model="projectDetails.endDate"
            square
            outlined
            clearable
            type="date"
            class="text-red q-pa-md"
-           label="Start Date"
+           label="End Date"
 
            >
 
   </q-input>
 
 
-  <q-input
-
-           v-model="projectDetails .title"
-           square
-           clearable
-           lazy-rules
-           bordered
-           outlined
-           class="text-red q-pa-md"
-           type="date"
-           label="End Date">
-
-
-  </q-input>
 
 
 </q-form>
@@ -93,6 +79,7 @@ defineEmits<{
 
 const projectDetails = ref<Project>({} as Project)
   function submitTask(){
+    projectDetails.value.createdAt = new Date()
   api.post('projects', {...projectDetails.value, studentId : auth.authUser?.id}, { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
