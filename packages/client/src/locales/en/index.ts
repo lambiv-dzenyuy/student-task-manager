@@ -4,6 +4,7 @@ export const  english = {
   assignments: 'Assignments',
   email: 'Email',
   password: 'Password',
-  forgotPassword: 'Forgot Password'
+  forgotPassword: 'Forgot Password',
+  tasks: 'Tasks'
 
 };
