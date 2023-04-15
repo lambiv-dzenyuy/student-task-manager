@@ -15,16 +15,21 @@
           no-caps
           :label="`${auth.authUser?.firstName}  ${auth.authUser?.lastName}`"
 
-    ><q-list>
+    ><q-list dense bordered padding class="bg-primary text-white">
         <q-item v-close-popup clickable >
-
+          <q-item-section avatar>
+          <q-avatar :icon="mdiPencil"  text-color="white" />
+        </q-item-section>
           <q-item-section>
             <q-item-label>Edith Profile</q-item-label>
 
           </q-item-section>
 
         </q-item>
-        <q-item v-close-popup clickable >
+        <q-item v-close-popup clickable @click="logout()">
+          <q-item-section avatar>
+          <q-avatar :icon="mdiLogout"  text-color="white" />
+        </q-item-section>
           <q-item-section >
             <q-item-label>Logout</q-item-label>
           </q-item-section>
@@ -156,6 +161,8 @@ import {
 
 mdiPlus,
 mdiProjector,
+mdiLogout,
+mdiPencil,
 } from '@quasar/extras/mdi-v6';
 import { onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -164,23 +171,32 @@ import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';
 import { api } from 'src/boot/axios';
 import { appNotify } from 'src/components/notify';
+import { Student } from 'src/components/models';
 
 
 const router= useRouter()
 const openDialog = ref(false)
 
 const { locale } = useI18n({ useScope: 'global' });
+
 const localeOptions = [
   { value: 'en', label: 'English' },
   { value: 'fr', label: 'French' },
 ];
+
 const auth = useAuthStore()
+
 onBeforeMount(async  ()=>{
   if(!auth.isAuthenticated){
     router.push({name : 'login'})
     appNotify.error('Unauthorized User')
   }
 })
+
+function logout(){
+  auth.set('', {} as Student)
+  router.push({name : 'login'})
+}
 
 const currentUser = auth.authUser
 </script>
