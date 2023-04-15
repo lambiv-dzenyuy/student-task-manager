@@ -6,14 +6,14 @@
     <q-card-section>
       <q-form class="q-px-sm ">
         <q-select
-         v-model="taskDetails.projectId"
+         v-model="projectTitle"
          square
          clearable
          lazy-rules
          bordered
          outlined
          class="text-red q-pa-md"
-         :options="projects.map(project => project.id)"
+         :options="projectNames"
          label="project">
 
       </q-select>
@@ -80,7 +80,7 @@
     </q-form>
   </q-card-section>
   <q-card-actions align="center">
-      <q-btn color="secondary" label="Save Task" @click="submitTask()" />
+      <q-btn color="secondary" label="Save Task" @click="submitTask();$emit('open-create-task-dialog', true)" />
       <q-btn color="secondary" label="Cancel" @click="$emit('open-create-task-dialog', true)" />
     </q-card-actions>
   </q-card>
@@ -88,13 +88,13 @@
 
 <script lang='ts' setup>
 import { useAuthStore } from 'src/stores/auth';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { api } from 'src/boot/axios';
 import { appNotify} from './notify'
 import { Project } from './models';
+import { useRouter } from 'vue-router';
 
 
-const auth = useAuthStore()
 interface Task {
   title: string,
   description: string,
@@ -104,9 +104,19 @@ interface Task {
   startDate: Date,
   projectId: string
 }
+
+
+const auth = useAuthStore()
+const router = useRouter()
+
+
+const projectTitle = ref('')
 const taskDetails = ref<Task>({} as Task)
 
 const projects = ref<Project[]>([])
+const projectNames= computed(()=>{
+  return projects.value.map(project => project.title)
+})
 
 defineEmits<{
 (e: 'open-create-task-dialog', va: boolean): boolean
@@ -122,14 +132,16 @@ projects.value.map(item => console.log((new Date(item.createdAt)).toDateString()
 });
 
 function submitTask(){
-  api.post('tasks', {...taskDetails.value, studentId : auth.authUser?.id }, { headers: {
+const projectId = projects.value.find(project => project.title == projectTitle.value)?.id
+  api.post('tasks', {...taskDetails.value, projectId : projectId, studentId : auth.authUser?.id }, { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
         }}).then(response => {
           if(response.status >=200 && response.status <300){
-  appNotify.success
+  appNotify.success('Task created successfully')
+        router.push(router.currentRoute.value)
           }
-          else appNotify.error
+          else appNotify.error('Failed to create Task')
 
 });
 }
