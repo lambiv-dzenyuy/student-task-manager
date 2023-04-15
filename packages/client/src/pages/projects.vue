@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <div class="q-px-xl">
     <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
       {{ $t('project') }}
     </div>
@@ -13,7 +14,7 @@
       />
     </q-dialog>
     </div>
-    <q-card class="q-mx-md q-mt-md  product-card text-size-12 bg-white rounded-borders">
+    <q-card class="fit q-px-md q-mt-md  product-card text-size-12 bg-white rounded-borders">
       <q-list padding class="fit">
         <q-item class="q-mx-sm text-black">
           <q-input
@@ -55,12 +56,13 @@
             <q-item-label class="q-mt-sm"> Actions </q-item-label>
           </q-item-section>
         </q-item>
-        <!--
+
           <q-scroll-area
+          class="scroll"
           visible
           :vertical-thumb-style="thumbStyle"
           >
-        -->
+
         <q-item
           v-for=" project , index in projects"
           :key="project.id"
@@ -102,16 +104,18 @@
             </div>
           </q-item-section>
         </q-item>
-        <!-- </q-scroll-area> -->
+        </q-scroll-area>
       </q-list>
+
     </q-card>
+  </div>
   </q-page>
 </template>
 
 <script lang="ts" setup>
 import { mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
-import { Project } from '../components/models'
+import { Project, Task } from '../components/models'
 import {  ref, onBeforeMount } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router'
@@ -141,25 +145,30 @@ onBeforeMount(async  ()=>{
 })
 
 function deleteProject(projectIndex: number){
-  const {id } = projects.value[projectIndex];
+  const id  = projects.value[projectIndex].id;
   projects.value.splice(projectIndex, 1)
   api.delete(`projects/${id}`,  { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
         }})
 }
-
 function viewProjectTasks(project: Project){
  router.push({name: 'project-tasks', params : { projectId : project.id, projectTitle : project.title}})
 }
 
-
-
+const thumbStyle : Partial<CSSStyleDeclaration> = {
+        right: '4px',
+        borderRadius: '7px',
+        backgroundColor: '#000235',
+        width: '4px',
+        opacity: '0.75px'
+};
 </script>
 
 <style lang="scss" scoped>
-.q-list{
-  // height: 90vh;
-  width: inherit;
+.scroll {
+  height: calc(
+    100vh - #{$drawer-margin-top-bottom * 2} - #{$header-container-height} - 200px
+  );
 }
 </style>
