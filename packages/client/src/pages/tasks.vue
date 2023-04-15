@@ -2,15 +2,15 @@
   <q-page>
     <div class="q-px-xl">
     <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
-      {{ $t('project') }}
+      {{ $t('tasks') }}
     </div>
     <div class="flex justify-end q-mx-md">
-      <q-btn class="bg-secondary text-white text-capitalize" label="Add Project" @click="openDialog=!openDialog" />
+      <q-btn class="bg-secondary text-white text-capitalize" label="Add Task" @click="openDialog=!openDialog" />
 
       <q-dialog v-model="openDialog">
-      <CreateProject
+      <create-task
       @open-dialog="()=> openDialog=!openDialog"
-      @project="(projectDetails)=>tasks.push(projectDetails)"
+      @task="(taskDetails : Task)=>tasks.push(taskDetails)"
       />
     </q-dialog>
     </div>
@@ -43,16 +43,21 @@
 
             </q-item-label>
           </q-item-section>
-          <q-item-section class="col-3" >
+          <q-item-section class="col" >
             <q-item-label class="q-mt-sm">
-              Date Created
+              Start Date
             </q-item-label>
           </q-item-section>
-          <q-item-section class="col-3">
+          <q-item-section class="col">
             <q-item-label class="q-mt-sm"> End Date </q-item-label>
           </q-item-section>
-
-          <q-item-section end class="col-2">
+          <q-item-section class="">
+            <q-item-label class="q-mt-sm"> Status </q-item-label>
+          </q-item-section>
+          <q-item-section class="">
+            <q-item-label class="q-mt-sm"> Priority </q-item-label>
+          </q-item-section>
+          <q-item-section end class="">
             <q-item-label class="q-mt-sm"> Actions </q-item-label>
           </q-item-section>
         </q-item>
@@ -64,25 +69,36 @@
           >
 
         <q-item
-          v-for=" project , index in tasks"
-          :key="project.id"
+          v-for=" task , index in tasks"
+          :key="task.id"
           class="text-left q-ma-sm justify-between"
-          clickable
 
         >
           <q-item-section class="col-4">
             <q-item-label class="q-mt-sm">
-              {{ project.title }}
+              {{ task.title }}
             </q-item-label>
           </q-item-section>
-          <q-item-section class="col-3">
+          <q-item-section class="col">
             <q-item-label class="q-mt-sm">
-              {{ (new Date(project.createdAt)).toDateString()}}
+              {{ task
+              .startDate ? (new Date(task
+              .startDate)).toDateString() : 'Not Specified'}}
             </q-item-label>
           </q-item-section>
-          <q-item-section class="col-3 text-weight-bold">
+          <q-item-section class="col text-weight-bold">
             <q-item-label class="q-mt-sm">
-              {{ project.endDate ? (new Date(project.endDate)).toDateString() : 'Not Stated'}}
+              {{ task.endDate ? (new Date(task.endDate)).toDateString() : 'Not Stated'}}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section class="col">
+            <q-item-label class="q-mt-sm">
+              {{ task.status}}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section class="col">
+            <q-item-label class="q-mt-sm">
+              {{ task.priority}}
             </q-item-label>
           </q-item-section>
           <q-item-section>
@@ -93,14 +109,21 @@
                 round
                 :icon="mdiPencil"
                 class="cursor-pointer"
-              />
+              ><q-tooltip >
+          Edit Task
+        </q-tooltip>
+        </q-btn>
               <q-btn
               flat
               dense
                 round
                 :icon="mdiTrashCan"
-                @click="deleteTask(index)"
-              />
+                @click="deleteProject(index)"
+              >
+              <q-tooltip >
+          delete project
+        </q-tooltip>
+            </q-btn>
             </div>
           </q-item-section>
         </q-item>
@@ -115,21 +138,20 @@
 <script lang="ts" setup>
 import { mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
-import { Project, Task } from '../components/models'
-import {  ref, onBeforeMount } from 'vue';
+import {  Task } from '../components/models'
+import { ref, onBeforeMount } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router'
-import CreateProject from 'src/components/create-project.vue';
-import { QTable } from 'quasar';
-import { title } from 'process';
+import CreateTask from 'src/components/create-task.vue';
+import { Dialog } from 'quasar';
 
 
 const router = useRouter()
 
-
+const taskDetails = ref<Task>({} as Task)
 const openDialog=ref(false)
 const search = ref('')
-const tasks = ref<Project[]>([] as Project[])
+const tasks = ref<Task[]>([] as Task[])
 
 const auth = useAuthStore()
 onBeforeMount(async  ()=>{
@@ -146,29 +168,47 @@ onBeforeMount(async  ()=>{
 });
 })
 
-function deleteTask(projectIndex: number){
-  const id  = tasks.value[projectIndex].id;
+function deleteProject(projectIndex: number){
+
+
+  Dialog.create({
+    title: 'Delete Project',
+    message: `Are you sure you want to delete ${tasks.value[projectIndex].title} project\t This action will delete all related tasks`,
+    cancel: {
+      flat: true,
+      color: 'accent',
+    },
+    ok: {
+      flat: true,
+      color: 'negative',
+    },
+  }).onOk(() => {
+    const id  = tasks.value[projectIndex].id;
   tasks.value.splice(projectIndex, 1)
-  api.delete(`tasks/${id}`,  { headers: {
+  api.delete(`projects/${id}`,  { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
         }})
+  });
+
+
 }
-// function viewProjectTasks(project: Project){
-//  router.push({name: 'project-tasks', params : { projectId : project.id, projectTitle : project.title}})
-// }
-const thumbStyle = {
+
+
+
+const thumbStyle : Partial<CSSStyleDeclaration> = {
         right: '4px',
         borderRadius: '7px',
         backgroundColor: '#000235',
         width: '4px',
-        opacity: 0.75
+        opacity: '0.75px'
 };
 </script>
 
 <style lang="scss" scoped>
 .scroll {
-  height: 60vh;
-  max-width: 100% ;
+  height: calc(
+    100vh - #{$drawer-margin-top-bottom * 2} - #{$header-container-height} - 200px
+  );
 }
 </style>
