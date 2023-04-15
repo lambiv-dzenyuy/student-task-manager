@@ -131,7 +131,7 @@
 </template>
 
 <script lang="ts" setup>
-import { mdiBookArrowRightOutline, mdiFedora, mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
+import { mdiBookArrowRightOutline, mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
 import { Project } from '../components/models'
 import { ref, onBeforeMount } from 'vue';
