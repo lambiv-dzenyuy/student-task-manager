@@ -1,5 +1,5 @@
 import MainLayoutVue from 'layouts/MainLayout.vue';
-import IndexPageVue from 'src/pages/project-tasks.vue';
+import Tasks from 'src/pages/tasks.vue';
 import Dashboard from 'src/pages/dashboard.vue';
 import projects from 'pages/projects.vue';
 import ProjectTasks from 'pages/project-tasks.vue';
@@ -12,6 +12,7 @@ const routes: RouteRecordRaw[] = [
     component: MainLayoutVue ,
     children: [{name: 'dashboard',  path: '', component: Dashboard },
                {name : 'projects',path : 'projects', component : projects},
+               {name : 'tasks',path : 'tasks', component : Tasks},
                {name : 'project-tasks',path : 'project-tasks/:projectId/:projectTitle', component : ProjectTasks}],
   },
   { path: '/',
