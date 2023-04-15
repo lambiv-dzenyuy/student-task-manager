@@ -12,7 +12,7 @@ export class ProjectsService {
 
   create(createProjectDto: CreateProjectDto) {
     return this.prisma.project.create({
-      data: createProjectDto,
+      data: {...createProjectDto, endDate : new Date(createProjectDto.endDate)}
     });
   }
 
@@ -25,7 +25,7 @@ export class ProjectsService {
   }
 
   update(id: string, updateProjectDto: UpdateProjectDto) {
-    return this.prisma.project.update({ data : updateProjectDto, where: {  id } });
+    return this.prisma.project.update({ data : {...updateProjectDto}, where: {  id } });
   }
 
   findStudentProjects( studentId :  number) {
@@ -33,7 +33,7 @@ export class ProjectsService {
   }
 
   remove(id: string) {
-    return this.prisma.project.delete({ where : { id : id }});
+    return this.prisma.task.deleteMany({ where : { projectId : id }}).then(res => this.prisma.project.delete({ where : { id }})) 
   }
 
   findStudentProjectTasks(studentId : number, projectId : string){
