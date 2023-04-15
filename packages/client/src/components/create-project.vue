@@ -1,6 +1,9 @@
 <template>
 
     <q-card class="q-dialog-plugin rounded-borders">
+      <q-card-section class="text-center">
+      Create New Project
+    </q-card-section>
       <q-card-section>
 
 
