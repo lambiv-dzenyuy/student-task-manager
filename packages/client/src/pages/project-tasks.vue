@@ -15,7 +15,7 @@
       <q-scroll-area
         visible
         :vertical-thumb-style="thumbStyle"
-        style="height: 84%"
+        class="scroll"
       >
         <q-card
           v-for="item in getList('To-Do')"
@@ -32,10 +32,10 @@
                 {{ item.priority }}
             </q-badge>
 
-                <span class="text-weight-medium">{{ item.description }}</span>
+                <span class="text-weight-medium text-italics">{{ item.description }}</span>
                 <span><span>Created: </span>{{
                 Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
-                <span>day ago </span></span>
+                <span>days ago </span></span>
             </q-card-section>
           </q-card>
        </q-scroll-area>
@@ -56,7 +56,7 @@
     <q-scroll-area
       visible
       :vertical-thumb-style="thumbStyle"
-      style="height: 84%">
+      class="scroll">
     <q-card
       v-for="item in getList('In Progress')"
       :key="item.id"
@@ -94,7 +94,8 @@
     <q-scroll-area
       visible
       :vertical-thumb-style="thumbStyle"
-      style="height: 84%">
+      class="scroll"
+      >
     <q-card
       v-for="item in getList('Done')"
       :key="item.id"
@@ -111,7 +112,7 @@
       <span class="text-weight-medium">{{ item.description }}</span>
             <span><span>Created: </span>{{
              Math.ceil(((new Date()).getTime()  - ( new Date(item.createdAt)).getTime())/(1000*3600*24)) }}
-            <span>day ago </span></span>
+            <span>days ago </span></span>
         </q-card-section>
       </q-card>
     </q-scroll-area>
@@ -129,20 +130,20 @@
 <script lang="ts" setup >
 import { mdiPlus } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
-import { watch, onErrorCaptured, ref } from 'vue';
-import { Project, Task } from '../components/models'
+import { ref } from 'vue';
+import {  Task } from '../components/models'
 import { useAuthStore } from 'src/stores/auth';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, } from 'vue-router';
 
 
 
 const route = useRoute()
-const router = useRouter()
+
 
 const auth = useAuthStore()
 console.log('user if is ', auth.authUser?.id, 'project id is', route.params.projectId)
 const tasks = ref<Task[]>([])
-const project = ref<Project>({}as Project)
+
 
 
 
@@ -190,19 +191,25 @@ function onDrop(event: DragEvent, list: string) {
 
   }
 }
-const thumbStyle = {
+const thumbStyle : Partial<CSSStyleDeclaration> = {
         right: '4px',
         borderRadius: '7px',
         backgroundColor: '#000235',
         width: '4px',
-        opacity: 0.75
+        opacity: '0.75px'
 };
+
 </script>
 
 <style lang="scss" scoped>
 .drop-zone{
-  height: 94vh;
+
   width: 350px;
 }
 
+.scroll {
+  height: calc(
+    100vh - #{$drawer-margin-top-bottom *3 } - #{$header-container-height*2} - 23px
+  );
+}
 </style>
