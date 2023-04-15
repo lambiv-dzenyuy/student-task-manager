@@ -67,8 +67,8 @@
           v-for=" project , index in projects"
           :key="project.id"
           class="text-left q-ma-sm justify-between"
-          clickable
-          @click="viewProjectTasks(project)"
+
+
         >
           <q-item-section class="col-4">
             <q-item-label class="q-mt-sm">
@@ -93,14 +93,32 @@
                 round
                 :icon="mdiPencil"
                 class="cursor-pointer"
-              />
+              ><q-tooltip >
+          Edit Project
+        </q-tooltip>
+        </q-btn>
               <q-btn
               flat
               dense
                 round
                 :icon="mdiTrashCan"
                 @click="deleteProject(index)"
-              />
+              >
+              <q-tooltip >
+          delete project
+        </q-tooltip>
+            </q-btn>
+            <q-btn
+              flat
+              dense
+                round
+                :icon="mdiBookArrowRightOutline"
+                @click="viewProjectTasks(project)"
+              >
+              <q-tooltip >
+          view tasks
+        </q-tooltip>
+            </q-btn>
             </div>
           </q-item-section>
         </q-item>
@@ -113,13 +131,14 @@
 </template>
 
 <script lang="ts" setup>
-import { mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
+import { mdiBookArrowRightOutline, mdiFedora, mdiMagnify, mdiPencil,  mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
-import { Project, Task } from '../components/models'
-import {  ref, onBeforeMount } from 'vue';
+import { Project } from '../components/models'
+import { ref, onBeforeMount } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router'
 import CreateProject from 'src/components/create-project.vue';
+import { Dialog } from 'quasar';
 
 
 const router = useRouter()
@@ -145,13 +164,31 @@ onBeforeMount(async  ()=>{
 })
 
 function deleteProject(projectIndex: number){
-  const id  = projects.value[projectIndex].id;
+
+
+  Dialog.create({
+    title: 'Delete Project',
+    message: `Are you sure you want to delete ${projects.value[projectIndex].title} project\t This action will delete all related tasks`,
+    cancel: {
+      flat: true,
+      color: 'accent',
+    },
+    ok: {
+      flat: true,
+      color: 'negative',
+    },
+  }).onOk(() => {
+    const id  = projects.value[projectIndex].id;
   projects.value.splice(projectIndex, 1)
   api.delete(`projects/${id}`,  { headers: {
            Authorization:'Bearer ' + auth.token,
           'x-access-token': auth.token
         }})
+  });
+
+
 }
+
 function viewProjectTasks(project: Project){
  router.push({name: 'project-tasks', params : { projectId : project.id, projectTitle : project.title}})
 }
