@@ -1,6 +1,11 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-drawer :width="260" class="drawer rounded-borders" show-if-above bordered>
+    <q-drawer
+      :width="260"
+      class="drawer rounded-borders"
+      show-if-above
+      bordered
+    >
       <q-list>
         <q-item>
           <div
@@ -20,7 +25,7 @@
                     <q-avatar :icon="mdiPencil" />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>Edith Profile</q-item-label>
+                    <q-item-label>{{ $t('edithProfile') }}</q-item-label>
                   </q-item-section>
                 </q-item>
                 <q-item v-close-popup clickable @click="logout()">
@@ -28,17 +33,15 @@
                     <q-avatar :icon="mdiLogout" />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>Logout</q-item-label>
+                    <q-item-label>{{ $t('logout') }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
             </q-btn-dropdown>
           </div>
         </q-item>
-        <q-separator class="q-mx-md" spaced="sm"  />
-        <q-list  class="text-weight-medium text-size-14 line-height-20">
-          <q-separator class="q-mx-md q-mb-md" dark />
-
+        <q-separator class="q-mx-md" spaced="sm" />
+        <q-list class="text-weight-medium text-size-14 line-height-20">
           <q-item
             class="q-mx-md rounded-borders"
             clickable
@@ -49,7 +52,7 @@
               <q-btn flat dense :icon="mdiViewDashboard" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>Dashboard</q-item-label>
+              <q-item-label>{{ $t('dashboard') }}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item
@@ -62,7 +65,7 @@
               <q-btn flat dense :icon="mdiProjector" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>Projects</q-item-label>
+              <q-item-label>{{ $t('projects') }}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item
@@ -75,7 +78,7 @@
               <q-btn flat dense :icon="mdiDomain" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>My Tasks</q-item-label>
+              <q-item-label>{{ $t('myTasks') }}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item
@@ -88,7 +91,7 @@
               <q-btn flat dense :icon="mdiPlus" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>Create New Task</q-item-label>
+              <q-item-label>{{ $t('createNewTask') }}</q-item-label>
               <q-dialog v-model="openDialog">
                 <createTask
                   @open-create-task-dialog="() => (openDialog = !openDialog)"
@@ -96,21 +99,24 @@
               </q-dialog>
             </q-item-section>
           </q-item>
-          <q-separator class="q-mx-md" spaced="sm"  />
+          <q-separator class="q-mx-md" spaced="sm" />
 
           <q-item>
-            <q-item-section class="text-weight-bold"> Settings </q-item-section>
+            <q-item-section class="text-weight-bold">
+              {{ $t('settings') }}
+            </q-item-section>
           </q-item>
           <q-item clickable>
             <q-item-section>
               <q-select
                 v-model="locale"
                 :options="localeOptions"
-                label="Language"
+                :label="$t('language')"
                 dense
                 outlined
+                emit-value
+                map-options
                 options-dense
-                class="full-width q-mx-lg text-accent"
               />
             </q-item-section>
           </q-item>
@@ -196,9 +202,7 @@ const currentUser = auth.authUser;
 .q-page-container {
   background-color: #e5e5e5 !important;
 }
-.drawer{
-
+.drawer {
   border-radius: 10px;
-
 }
 </style>

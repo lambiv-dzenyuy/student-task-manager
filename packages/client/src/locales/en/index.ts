@@ -1,9 +1,15 @@
 export const english = {
-  language: 'English',
-  project: 'Project',
+  language: 'Language',
+  projects: 'Projects',
   assignments: 'Assignments',
   email: 'Email',
   password: 'Password',
   forgotPassword: 'Forgot Password',
-  tasks: 'Tasks'
+  tasks: 'Tasks',
+  edithProfile: 'Edith Profile',
+  logout: 'Logout',
+  dashboard: 'Dashboard',
+  myTasks: 'My Tasks',
+  createNewTask: 'Create New Task',
+  settings: 'Settings'
 };
