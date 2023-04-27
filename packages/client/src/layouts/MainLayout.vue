@@ -11,8 +11,8 @@
           <div
             class="fit column wrap justify-center items-center content-center"
           >
-            <q-avatar class="q-my-lg">
-              <img :src="currentUser?.avatar" />
+            <q-avatar v-if="auth.authUser" size="80px" class="q-my-lg" color="blue-1">
+             {{ auth.authUser?.firstName.charAt(0) + auth.authUser?.lastName.charAt(0) }}
             </q-avatar>
             <q-btn-dropdown
               split
@@ -20,7 +20,7 @@
               no-caps
               :label="`${auth.authUser?.firstName}  ${auth.authUser?.lastName}`"
               ><q-list dense bordered padding>
-                <q-item v-close-popup clickable @click="openEdithDetails()">
+                <q-item v-close-popup clickable @click="openDialog(EdithProfile)">
                   <q-item-section avatar>
                     <q-avatar :icon="mdiPencil" />
                   </q-item-section>
@@ -85,18 +85,16 @@
             class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-white"
-            @click="openDialog = !openDialog"
+            @click="openDialog(createTask)"
           >
             <q-item-section avatar>
               <q-btn flat dense :icon="mdiPlus" />
             </q-item-section>
             <q-item-section>
               <q-item-label>{{ $t('createNewTask') }}</q-item-label>
-              <q-dialog v-model="openDialog">
-                <createTask
-                  @open-create-task-dialog="() => (openDialog = !openDialog)"
-                />
-              </q-dialog>
+
+
+
             </q-item-section>
           </q-item>
           <q-separator class="q-mx-md" spaced="sm" />
@@ -139,7 +137,7 @@ import {
   mdiLogout,
   mdiPencil
 } from '@quasar/extras/mdi-v6';
-import { onBeforeMount, ref } from 'vue';
+import { Component, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import createTask from 'src/components/create-task.vue';
 import { useAuthStore } from 'src/stores/auth';
@@ -150,7 +148,7 @@ import { useQuasar } from 'quasar';
 import EdithProfile from 'src/components/edith-profile.vue';
 
 const router = useRouter();
-const openDialog = ref(false);
+
 
 const { locale } = useI18n({ useScope: 'global' });
 
@@ -174,9 +172,9 @@ function logout() {
   router.push({ name: 'login' });
 }
 
-function openEdithDetails() {
+function openDialog(component: Component) {
   $q.dialog({
-    component: EdithProfile,
+    component: component,
 
     // props forwarded to your custom component
     componentProps: {
