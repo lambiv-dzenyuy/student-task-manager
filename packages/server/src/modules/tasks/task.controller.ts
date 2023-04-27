@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -36,6 +37,11 @@ export class TaskController {
   @Get(':studentId')
   findStudentTasks(@Param('studentId') studentId: string) {
     return this.tasksService.findStudentTasks(+studentId);
+  }
+
+  @Delete(':taskId')
+  delete(@Param('taskId') taskId: string) {
+    return this.tasksService.delete(taskId);
   }
 
   @Get(':studentId/:projectId')

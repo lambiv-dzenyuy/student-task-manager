@@ -21,6 +21,12 @@ export class TasksService {
   findAll() {
     return this.prisma.task.findMany();
   }
+  
+  delete(taskId: string){
+    return this.prisma.task.delete({
+      where : {id : taskId}
+    })
+  }
 
   findOne(id: string) {
     return this.prisma.task.findUnique({ where: { id: id } });
