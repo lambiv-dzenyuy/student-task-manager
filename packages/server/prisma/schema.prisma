@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
@@ -27,6 +27,7 @@ model Task {
   status      String
   completed   Boolean?  @default(false)
   createdAt   DateTime  @default(now())
+  startDate   DateTime?
   endDate     DateTime?
   studentId   Int
   student     Student   @relation(fields: [studentId], references: [id])

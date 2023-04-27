@@ -10,7 +10,11 @@ export class TasksService {
 
   create(createTaskDto: CreateTaskDto) {
     return this.prisma.task.create({
-      data: createTaskDto
+      data: {
+        ...createTaskDto,
+        startDate: new Date(createTaskDto.startDate),
+        endDate: new Date(createTaskDto.endDate)
+      }
     });
   }
 

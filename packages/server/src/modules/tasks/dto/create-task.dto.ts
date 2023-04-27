@@ -10,4 +10,5 @@ export class CreateTaskDto {
   studentId: number;
   projectId: string;
   endDate: Date;
+  startDate?:  Date;
 }
