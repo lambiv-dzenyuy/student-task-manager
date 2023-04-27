@@ -35,13 +35,16 @@ export const english = {
   project: 'Project',
   startDate: 'Start Date',
   endDate: 'End Date',
+  dateCreated: 'Date Created',
   status: 'Status',
   priority: 'Priority',
   actions: 'Actions',
   notSpecified: 'Not Specified',
   editTask: 'Edit Task',
+  editProject: 'Edit Project',
   deleteProject: 'delete project',
   deleteTask: 'delete task',
   addTask: 'add  task',
-
+  addProject: 'add  project',
+  viewTasks: 'view tasks'
 };

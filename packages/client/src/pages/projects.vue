@@ -2,12 +2,12 @@
   <q-page>
     <div class="q-px-xl">
       <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
-        {{ $t('project') }}
+        {{ $t('projects') }}
       </div>
       <div class="flex justify-end q-mx-md">
         <q-btn
           class="bg-secondary text-white text-capitalize"
-          label="Add Project"
+          :label="$t('addProject')"
           @click="openDialog = !openDialog"
         />
 
@@ -41,17 +41,17 @@
             class="text-left bg-secondary text-white text-size-14 q-ma-sm justify-between rounded-borders"
           >
             <q-item-section class="col-4">
-              <q-item-label class="q-mt-sm"> Title </q-item-label>
+              <q-item-label class="q-mt-sm"> {{$t('title')}} </q-item-label>
             </q-item-section>
             <q-item-section class="col-3">
-              <q-item-label class="q-mt-sm"> Date Created </q-item-label>
+              <q-item-label class="q-mt-sm">  {{$t('dateCreated')}} </q-item-label>
             </q-item-section>
             <q-item-section class="col-3">
-              <q-item-label class="q-mt-sm"> End Date </q-item-label>
+              <q-item-label class="q-mt-sm"> {{$t('endDate')}} </q-item-label>
             </q-item-section>
 
             <q-item-section end class="col-2">
-              <q-item-label class="q-mt-sm"> Actions </q-item-label>
+              <q-item-label class="q-mt-sm">{{$t('actions')}} </q-item-label>
             </q-item-section>
           </q-item>
 
@@ -92,7 +92,7 @@
                     round
                     :icon="mdiPencil"
                     class="cursor-pointer"
-                    ><q-tooltip> Edit Project </q-tooltip>
+                    ><q-tooltip> {{ $t('editProject') }} </q-tooltip>
                   </q-btn>
                   <q-btn
                     flat
@@ -101,7 +101,7 @@
                     :icon="mdiTrashCan"
                     @click="deleteProject(index)"
                   >
-                    <q-tooltip> delete project </q-tooltip>
+                    <q-tooltip>  {{ $t('deleteProject') }} </q-tooltip>
                   </q-btn>
                   <q-btn
                     flat
@@ -110,7 +110,7 @@
                     :icon="mdiBookArrowRightOutline"
                     @click="viewProjectTasks(project)"
                   >
-                    <q-tooltip> view tasks </q-tooltip>
+                    <q-tooltip> {{ $t('viewTasks') }} </q-tooltip>
                   </q-btn>
                 </div>
               </q-item-section>
