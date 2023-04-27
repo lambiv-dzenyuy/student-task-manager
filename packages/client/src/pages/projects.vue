@@ -6,8 +6,9 @@
       </div>
       <div class="flex justify-end q-mx-md">
         <q-btn
-          class="bg-secondary text-white text-capitalize"
+          class=" text-primary text-capitalize"
           :label="$t('addProject')"
+          outline
           @click="openDialog = !openDialog"
         />
 
@@ -38,7 +39,7 @@
           <q-separator class="q-ma-md" />
 
           <q-item
-            class="text-left bg-secondary text-white text-size-14 q-ma-sm justify-between rounded-borders"
+            class="header text-left text-primary text-bold text-size-14 q-ma-sm justify-between rounded-borders"
           >
             <q-item-section class="col-4">
               <q-item-label class="q-mt-sm"> {{$t('title')}} </q-item-label>
@@ -80,7 +81,7 @@
                   {{
                     project.endDate
                       ? new Date(project.endDate).toDateString()
-                      : 'Not Stated'
+                      : $t('notSpecified')
                   }}
                 </q-item-label>
               </q-item-section>
@@ -206,5 +207,8 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
     100vh - #{$drawer-margin-top-bottom * 2} - #{$header-container-height} -
       200px
   );
+}
+.header{
+  border: 1px solid $primary;
 }
 </style>
