@@ -1,8 +1,7 @@
-
-import { english } from './en'
-import { french } from './fr'
+import { english } from './en';
+import { french } from './fr';
 
 export default {
-  'en': english,
-  'fr': french
-}
+  en: english,
+  fr: french
+};

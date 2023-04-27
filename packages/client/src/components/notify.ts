@@ -14,5 +14,5 @@ export const appNotify = {
       type: 'negative',
       position: 'top-right'
     });
-  },
+  }
 };

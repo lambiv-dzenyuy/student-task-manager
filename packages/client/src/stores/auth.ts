@@ -5,26 +5,26 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     /** @type {{ text: st} */
     auth: {
-      token : '',
-       authUser: null as Student | null
+      token: '',
+      authUser: null as Student | null
     }
   }),
 
   getters: {
-    isAuthenticated (state) {
-      return state.auth.token.length > 0 ;
+    isAuthenticated(state) {
+      return state.auth.token.length > 0;
     },
-    authUser(state){
-      return state.auth.authUser
+    authUser(state) {
+      return state.auth.authUser;
     },
-    token(state){
+    token(state) {
       return state.auth.token;
     }
   },
 
   actions: {
-    set (token: string, user: Student) {
-      this.auth = {token : token, authUser  : user};
+    set(token: string, user: Student) {
+      this.auth = { token: token, authUser: user };
     }
   }
 });
