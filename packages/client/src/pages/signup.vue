@@ -1,45 +1,44 @@
 <template>
-  <div class="row wrap justify-between q-pa-xl">
-    <div class=" justify-center items-center content-start">
-      <q-card class="shadow-24 q-pl-none form rounded-borders">
+  <div class="row wrap justify-between">
+    <div
+      class="column justify-center items-center content-start q-pa-lg q-mx-lg"
+    >
+      <q-card class="shadow-24 form rounded-borders">
         <q-card-section
           header
           class="text-black center text-center text-h5 text-grey-8"
           >Create an account</q-card-section
         >
         <q-card-section>
-          <q-form class="q-px-sm">
+          <q-form class="q-px-sm q-pa-md">
             <q-input
               v-model="data.firstName"
               dense
-              square
               outlined
               clearable
-              type="text"
-              class="text-red q-pa-md"
               label="First Name"
+              :rules="[(value) => !!value || 'First Name is required']"
             >
             </q-input>
             <q-input
               v-model="data.lastName"
               dense
-              square
               outlined
               clearable
-              type="text"
-              class="text-red q-pa-md"
               label="Last Name"
+              :rules="[(value) => !!value || 'Last Name is required']"
             >
             </q-input>
             <q-input
               v-model="data.email"
               dense
-              square
               outlined
               clearable
-              type="email"
-              class="text-red q-pa-md"
               label="Email"
+              :rules="[
+                (value) => !!value || 'Email is required',
+                (value) => value.includes('@') || 'Not a valid email'
+              ]"
             >
               <template #prepend>
                 <q-icon name="email" />
@@ -49,30 +48,29 @@
             <q-input
               v-model="password"
               dense
-              square
-              clearable
-              lazy-rules
-              bordered
               outlined
-              class="text-red q-pa-md"
-              type="password"
+              clearable
               label="Password"
+              :rules="[(value) => !!value || 'Password is required']"
             >
               <template #prepend>
                 <q-icon name="lock" />
               </template>
             </q-input>
+
             <q-input
               v-model="repeatedPassword"
               dense
-              square
               clearable
-              lazy-rules
-              bordered
               outlined
-              class="text-red q-pa-md"
               type="password"
-              label="re-enter Password"
+              label="Confirm Password"
+              :rules="[
+                (value) => !!value || 'Password Confirmation is required',
+                (value) =>
+                  value === password ||
+                  'Password confirmation does not match password'
+              ]"
             >
               <template #prepend>
                 <q-icon name="lock" />
@@ -99,15 +97,14 @@
       </q-card>
     </div>
 
-    <div class="column q-pa-xl q-pa-xl landing-image text-message-section">
-      <div class="q-px-auto q-pb-xl text-center text-h3">
+    <div
+      class="column q-pa-lg landing-image justify-center items-center content-start q-mx-lg"
+    >
+      <div class="q-px-lg q-pb-xl text-left text-h3">
         <p>Start Tracking</p>
         <p>Your Tasks</p>
       </div>
-      <q-img
-        src="/public/icons/landing.avif"
-        class="q-ml-xl q-pa-xl float-left"
-      />
+      <q-img src="/icons/landing.avif" class="q-ml-xl q-pa-xl float-left" />
     </div>
   </div>
 </template>
@@ -118,17 +115,7 @@ import { api } from 'src/boot/axios';
 import { ref } from 'vue';
 import { Student } from 'src/components/models';
 
-import { useQuasar } from 'quasar';
-
-const $q = useQuasar();
-
-function triggerNotification(type: string, message: string) {
-  $q.notify({
-    type: type,
-    message: message
-    // position: 'top-right',
-  });
-}
+import { appNotify } from 'src/components/notify';
 
 const password = ref('');
 const repeatedPassword = ref('');
@@ -147,9 +134,9 @@ function submit() {
       console.log(response);
 
       if (response.status >= 200 && response.status < 300) {
-        triggerNotification('positive', 'Account created successfully');
+        appNotify.success('Account created successfully');
       } else {
-        triggerNotification('negative', String(response.status) as string);
+        appNotify.error(String(response.status) as string);
       }
       router.push({ name: 'login' });
     });
@@ -158,11 +145,6 @@ function submit() {
 
 <style lang="scss" scoped>
 .form {
-  width: 400px;
-}
-
-.landing-image {
-  width: 40%;
-  height: 50%;
+  width: 500px;
 }
 </style>
