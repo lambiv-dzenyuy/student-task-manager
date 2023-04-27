@@ -19,7 +19,7 @@ async function bootstrap() {
 
   Logger.log(
     `🚀 Server running on http://localhost:${3000}`,
-    'NestApplication',
+    'NestApplication'
   );
 }
 bootstrap();

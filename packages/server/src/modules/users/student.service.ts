@@ -29,8 +29,10 @@ export class StudentService {
     }
   }
 
-  update(id : number, updateStudentDto : UpdateStudentDto){
-    return this.prisma.student.update({ where : { id }, data : updateStudentDto})
+  update(id: number, updateStudentDto: UpdateStudentDto) {
+    return this.prisma.student.update({
+      where: { id },
+      data: updateStudentDto
+    });
   }
-  
 }

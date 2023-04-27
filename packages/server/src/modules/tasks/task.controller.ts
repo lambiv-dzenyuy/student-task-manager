@@ -1,12 +1,20 @@
-import { Body, Controller, Get, Logger, Param, Patch, Post } from "@nestjs/common";
-import { retry } from "rxjs";
-import { PrismaService } from "src/prisma/prisma.service";
-import { CreateTaskDto } from "./dto/create-task.dto";
-import { GetProjectTasksDto } from "./dto/get-project-tasks.dto";
-import { UpdateTaskDto } from "./dto/update-task.dto";
-import { TasksService } from "./task.service";
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post
+} from '@nestjs/common';
+import { retry } from 'rxjs';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { GetProjectTasksDto } from './dto/get-project-tasks.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
+import { TasksService } from './task.service';
 
-@Controller("api/v1/tasks")
+@Controller('api/v1/tasks')
 export class TaskController {
   constructor(private readonly tasksService: TasksService) {}
 
@@ -21,19 +29,20 @@ export class TaskController {
   }
 
   @Patch()
-  async update(@Body() updateTaskDto : UpdateTaskDto){
-    return this.tasksService.update( updateTaskDto)
+  async update(@Body() updateTaskDto: UpdateTaskDto) {
+    return this.tasksService.update(updateTaskDto);
   }
 
- 
   @Get(':studentId')
   findStudentTasks(@Param('studentId') studentId: string) {
     return this.tasksService.findStudentTasks(+studentId);
   }
 
   @Get(':studentId/:projectId')
-  findStudentTasksByProjectId(@Param() params : GetProjectTasksDto){
-    return this.tasksService.findStudentProjectTasks(+params.studentId, params.projectId)
+  findStudentTasksByProjectId(@Param() params: GetProjectTasksDto) {
+    return this.tasksService.findStudentProjectTasks(
+      +params.studentId,
+      params.projectId
+    );
   }
-
 }

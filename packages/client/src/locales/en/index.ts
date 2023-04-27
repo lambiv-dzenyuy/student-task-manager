@@ -1,4 +1,4 @@
-export const  english = {
+export const english = {
   language: 'English',
   project: 'Project',
   assignments: 'Assignments',
@@ -6,5 +6,4 @@ export const  english = {
   password: 'Password',
   forgotPassword: 'Forgot Password',
   tasks: 'Tasks'
-
 };

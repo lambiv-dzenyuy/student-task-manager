@@ -6,8 +6,14 @@ import { AuthModule } from './modules/auth/auth.module';
 import { StudentModule } from './modules/users/student.module';
 
 @Module({
-  imports: [PrismaModule, StudentModule, TaskModule, ProjectsModule, AuthModule],
+  imports: [
+    PrismaModule,
+    StudentModule,
+    TaskModule,
+    ProjectsModule,
+    AuthModule
+  ],
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

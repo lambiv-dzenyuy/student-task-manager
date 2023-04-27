@@ -16,7 +16,7 @@
           :label="`${auth.authUser?.firstName}  ${auth.authUser?.lastName}`"
 
     ><q-list dense bordered padding class="bg-primary text-white">
-        <q-item v-close-popup clickable >
+        <q-item v-close-popup clickable @click="openEdithDetails()" >
           <q-item-section avatar>
           <q-avatar :icon="mdiPencil"  text-color="white" />
         </q-item-section>
@@ -172,6 +172,8 @@ import { useRouter } from 'vue-router';
 import { api } from 'src/boot/axios';
 import { appNotify } from 'src/components/notify';
 import { Student } from 'src/components/models';
+import { useQuasar } from 'quasar'
+import EdithProfile from 'src/components/edith-profile.vue';
 
 
 const router= useRouter()
@@ -184,7 +186,8 @@ const localeOptions = [
   { value: 'fr', label: 'French' },
 ];
 
-const auth = useAuthStore()
+const auth = useAuthStore();
+const $q = useQuasar();
 
 onBeforeMount(async  ()=>{
   if(!auth.isAuthenticated){
@@ -196,6 +199,24 @@ onBeforeMount(async  ()=>{
 function logout(){
   auth.set('', {} as Student)
   router.push({name : 'login'})
+}
+
+function openEdithDetails(){
+  $q.dialog({
+    component: EdithProfile,
+
+    // props forwarded to your custom component
+    componentProps: {
+      text: 'something',
+      // ...more..props...
+    }
+  }).onOk(() => {
+    console.log('OK')
+  }).onCancel(() => {
+    console.log('Cancel')
+  }).onDismiss(() => {
+    console.log('Called on OK or Cancel')
+  })
 }
 
 const currentUser = auth.authUser
