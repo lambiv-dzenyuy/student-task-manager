@@ -26,10 +26,22 @@ export const english = {
   passwordIsRequired: 'Password is required',
   confirmPassword: 'Confirm Password',
   passwordConfirmationRequired: 'Password Confirmation is required',
-  passwordConfirmationDoesNotMatchPassword: 'Password confirmation does not match password',
+  passwordConfirmationDoesNotMatchPassword:
+    'Password confirmation does not match password',
   signUp: 'Sign Up',
   alreadyHaveAnAccount: ' Already have an account',
   startTracking: 'Start Tracking',
-
+  title: 'Title',
+  project: 'Project',
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  status: 'Status',
+  priority: 'Priority',
+  actions: 'Actions',
+  notSpecified: 'Not Specified',
+  editTask: 'Edit Task',
+  deleteProject: 'delete project',
+  deleteTask: 'delete task',
+  addTask: 'add  task',
 
 };
