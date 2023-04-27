@@ -1,81 +1,86 @@
 <template>
+   <q-dialog ref="dialogRef" @hide="onDialogHide">
+
   <q-card class="q-dialog-plugin rounded-borders">
     <q-card-section class="text-center"> Create Task </q-card-section>
     <q-card-section>
-      <q-form class="q-px-sm">
+      <q-form class="q-px-sm q-pa-md">
         <q-select
           v-model="projectTitle"
-          square
           clearable
-          lazy-rules
-          bordered
+          dense
           outlined
-          class="text-red q-pa-md"
           :options="projectNames"
           label="project"
+          :rules="[(value) => !!value || $t('firstNameIsRequired')]"
         >
         </q-select>
         <q-input
           v-model="taskDetails.title"
           square
+          dense
           outlined
           clearable
-          type="text"
-          class="text-red q-pa-md"
           label="Title"
+          :rules="[(value) => !!value || $t('firstNameIsRequired')]"
         >
         </q-input>
         <q-input
           v-model="taskDetails.description"
           square
+          dense
           outlined
           clearable
           type="textarea"
-          class="text-red q-pa-md"
           label="Description"
+          class="q-py-md"
         >
         </q-input>
         <q-select
           v-model="taskDetails.priority"
           square
+          dense
           clearable
           lazy-rules
           bordered
           outlined
           :options="['High', 'Medium', 'Low']"
-          class="text-red q-pa-md"
           label="Priority"
+          :rules="[(value) => !!value || $t('firstNameIsRequired')]"
         >
         </q-select>
         <q-select
           v-model="taskDetails.status"
           square
           clearable
+          dense
           lazy-rules
           bordered
           outlined
-          class="text-red q-pa-md"
           :options="['To-Do', 'In Progress', 'Done']"
           label="status"
+
         >
         </q-select>
         <q-input
           v-model="taskDetails.startDate"
           square
           outlined
+          dense
           clearable
+          class="q-py-md"
           type="date"
-          class="text-red q-pa-md"
           label="Start Date"
         >
         </q-input>
         <q-input
           v-model="taskDetails.endDate"
           square
+          dense
           outlined
           clearable
           type="date"
-          class="text-red q-pa-md"
+          class="q-py-md"
           label="End Date"
         >
         </q-input>
@@ -87,19 +92,21 @@
         label="Save Task"
         @click="
           submitTask();
-          $emit('open-create-task-dialog', true);
+
         "
       />
       <q-btn
         color="secondary"
         label="Cancel"
-        @click="$emit('open-create-task-dialog', true)"
+        @click="onDialogCancel"
       />
     </q-card-actions>
   </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts" setup>
+import { useDialogPluginComponent } from 'quasar'
 import { useAuthStore } from 'src/stores/auth';
 import { computed, ref } from 'vue';
 import { api } from 'src/boot/axios';
@@ -116,12 +123,14 @@ interface Task {
   startDate: Date;
   projectId: string;
 }
+const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = useDialogPluginComponent()
 
 const auth = useAuthStore();
 const router = useRouter();
 
 const projectTitle = ref('');
 const taskDetails = ref<Task>({} as Task);
+
 
 const projects = ref<Project[]>([]);
 const projectNames = computed(() => {
@@ -169,6 +178,7 @@ function submitTask() {
       if (response.status >= 200 && response.status < 300) {
         appNotify.success('Task created successfully');
         router.push(router.currentRoute.value);
+        onDialogOK();
       } else appNotify.error('Failed to create Task');
     });
 }

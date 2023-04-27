@@ -9,15 +9,15 @@
           class=" text-primary text-capitalize"
           :label="$t('addTask')"
           outline
-          @click="openDialog = !openDialog"
+          @click="openDialog "
         />
 
-        <q-dialog v-model="openDialog">
+
           <create-task
             @open-dialog="() => (openDialog = !openDialog)"
             @task="(taskDetails : Task)=>tasks.push(taskDetails)"
           />
-        </q-dialog>
+
       </div>
       <q-card
         class="fit q-px-md q-mt-md product-card text-size-12 bg-white rounded-borders"
@@ -146,6 +146,7 @@
 
 <script lang="ts" setup>
 import { mdiMagnify, mdiPencil, mdiTrashCan } from '@quasar/extras/mdi-v6';
+import { useQuasar } from 'quasar'
 import { api } from 'src/boot/axios';
 import { Task } from '../components/models';
 import { ref, onBeforeMount } from 'vue';
@@ -156,9 +157,27 @@ import { Dialog } from 'quasar';
 
 const router = useRouter();
 
+const $q = useQuasar()
+
 const taskDetails = ref<Task>({} as Task);
 const projects = ref<Task[]>([]);
-const openDialog = ref(false);
+function openDialog(){
+  $q.dialog({
+    component: CreateTask,
+
+    // props forwarded to your custom component
+    componentProps: {
+      text: 'something',
+      // ...more..props...
+    }
+  }).onOk(() => {
+    console.log('OK')
+  }).onCancel(() => {
+    console.log('Cancel')
+  }).onDismiss(() => {
+    console.log('Called on OK or Cancel')
+  })
+}
 const search = ref('');
 const tasks = ref<Task[]>([] as Task[]);
 
