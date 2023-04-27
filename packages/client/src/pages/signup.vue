@@ -7,7 +7,7 @@
         <q-card-section
           header
           class="text-black center text-center text-h5 text-grey-8"
-          >Create an account</q-card-section
+          >{{ $t('createAnAccount') }}</q-card-section
         >
         <q-card-section>
           <q-form class="q-px-sm q-pa-md">
@@ -16,8 +16,8 @@
               dense
               outlined
               clearable
-              label="First Name"
-              :rules="[(value) => !!value || 'First Name is required']"
+              :label="$t('firstName')"
+              :rules="[(value) => !!value || $t('firstNameIsRequired')]"
             >
             </q-input>
             <q-input
@@ -25,8 +25,8 @@
               dense
               outlined
               clearable
-              label="Last Name"
-              :rules="[(value) => !!value || 'Last Name is required']"
+              :label="$t('lastName')"
+              :rules="[(value) => !!value || $t('lastNameIsRequired')]"
             >
             </q-input>
             <q-input
@@ -34,10 +34,10 @@
               dense
               outlined
               clearable
-              label="Email"
+              :label="$t('email')"
               :rules="[
-                (value) => !!value || 'Email is required',
-                (value) => value.includes('@') || 'Not a valid email'
+                (value) => !!value || $t('emailIsRequired'),
+                (value) => value.includes('@') || $t('notAValidEmail')
               ]"
             >
               <template #prepend>
@@ -50,8 +50,8 @@
               dense
               outlined
               clearable
-              label="Password"
-              :rules="[(value) => !!value || 'Password is required']"
+              :label="$t('password')"
+              :rules="[(value) => !!value ||$t('passwordIsRequired')]"
             >
               <template #prepend>
                 <q-icon name="lock" />
@@ -64,12 +64,12 @@
               clearable
               outlined
               type="password"
-              label="Confirm Password"
+              :label="$t('confirmPassword')"
               :rules="[
-                (value) => !!value || 'Password Confirmation is required',
+                (value) => !!value || $t('passwordConfirmationRequired'),
                 (value) =>
-                  value === password ||
-                  'Password confirmation does not match password'
+                  value === password ||$t('passwordConfirmationDoesNotMatchPassword')
+
               ]"
             >
               <template #prepend>
@@ -85,13 +85,13 @@
             size="md"
             color="secondary"
             class="full-width text-white text-capitalize"
-            label="sign up"
+            :label="$t('signUp')"
             @click="submit"
           />
         </q-card-actions>
         <q-card-section class="text-center q-pa-sm">
           <p class="text-primary cursor-pointer" @click="navigateToLogin()">
-            Already have an account?
+           {{$t('alreadyHaveAnAccount')}}?
           </p>
         </q-card-section>
       </q-card>
@@ -101,8 +101,8 @@
       class="column q-pa-lg landing-image justify-center items-center content-start q-mx-lg"
     >
       <div class="q-px-lg q-pb-xl text-left text-h3">
-        <p>Start Tracking</p>
-        <p>Your Tasks</p>
+        <p>{{ $t('startTracking') }}</p>
+        <p>{{ $t('yourTasks') }}</p>
       </div>
       <q-img src="/icons/landing.avif" class="q-ml-xl q-pa-xl float-left" />
     </div>

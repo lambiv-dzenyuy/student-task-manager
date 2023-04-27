@@ -16,6 +16,20 @@ export const english = {
   welcomeBackStudent: 'Welcome Back Student',
   continueTracking: 'Continue Tracking',
   yourTasks: 'Your Tasks',
-  createAnAccount: 'create an account'
+  createAnAccount: 'Create An Account',
+  firstName: 'First Name',
+  isRequired: 'First Name is required',
+  lastName: 'Last Name',
+  lastNameIsRequired: 'Last Name is required',
+  emailIsRequired: 'Email is required',
+  notAValidEmail: 'Not a valid email',
+  passwordIsRequired: 'Password is required',
+  confirmPassword: 'Confirm Password',
+  passwordConfirmationRequired: 'Password Confirmation is required',
+  passwordConfirmationDoesNotMatchPassword: 'Password confirmation does not match password',
+  signUp: 'Sign Up',
+  alreadyHaveAnAccount: ' Already have an account',
+  startTracking: 'Start Tracking',
+
 
 };
