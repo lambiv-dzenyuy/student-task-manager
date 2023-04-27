@@ -2,9 +2,9 @@
   <div class="fit row wrap justify-between q-pa-xl">
     <div class="text-message-section column wrap content-center justify-center">
       <div class="q-px-auto column self-center text-center text-h3">
-        <p>Welcome Back Student;</p>
-        <p>Continue Tracking</p>
-        <p>Your Tasks</p>
+        <p>{{ $t('welcomeBackStudent') }};</p>
+        <p>{{ $t('continueTracking') }}</p>
+        <p>{{ $t('yourTasks') }}</p>
       </div>
     </div>
     <div class="column self-center">
@@ -20,7 +20,7 @@
               clearable
               type="email"
               class="text-red q-pa-md"
-              label="Email"
+              :label="$t('email')"
             >
               <template #prepend>
                 <q-icon name="email" />
@@ -35,7 +35,7 @@
               outlined
               class="text-red q-pa-md"
               type="password"
-              label="Password"
+              :label="$t('password')"
             >
               <template #prepend>
                 <q-icon name="lock" />
@@ -50,7 +50,7 @@
             size="lg"
             color="secondary"
             class="fit justify-center text-white text-size-md text-capitalize"
-            label="Login"
+            :label="$t('login')"
             @click="submit"
           />
         </q-card-actions>
@@ -60,7 +60,7 @@
               clickable
               class="cursor-pointer text-primary"
               @click="navigateToRegistration()"
-              >create an account?</span
+              >{{ $t('createAnAccount')}}?</span
             >
           </p>
         </q-card-section>
