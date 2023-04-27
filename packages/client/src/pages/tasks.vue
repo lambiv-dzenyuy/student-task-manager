@@ -129,7 +129,7 @@
                     dense
                     round
                     :icon="mdiTrashCan"
-                    @click="deleteProject(index)"
+                    @click="deleteTask(index)"
                   >
                     <q-tooltip> {{ $t('deleteTask') }}  </q-tooltip>
                   </q-btn>
@@ -189,10 +189,10 @@ onBeforeMount(async () => {
     });
 });
 
-function deleteProject(projectIndex: number) {
+function deleteTask(taskIndex: number) {
   Dialog.create({
-    title: 'Delete Project',
-    message: `Are you sure you want to delete ${tasks.value[projectIndex].title} project\t This action will delete all related tasks`,
+    title: 'Delete Task',
+    message: `Are you sure you want to delete ${tasks.value[taskIndex].title} task\t This action will delete all data related to this task`,
     cancel: {
       flat: true,
       color: 'accent'
@@ -202,9 +202,9 @@ function deleteProject(projectIndex: number) {
       color: 'negative'
     }
   }).onOk(() => {
-    const id = tasks.value[projectIndex].id;
-    tasks.value.splice(projectIndex, 1);
-    api.delete(`projects/${id}`, {
+    const id = tasks.value[taskIndex].id;
+    tasks.value.splice(taskIndex, 1);
+    api.delete(`tasks/${id}`, {
       headers: {
         Authorization: 'Bearer ' + auth.token,
         'x-access-token': auth.token
