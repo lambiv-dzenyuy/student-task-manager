@@ -1,126 +1,120 @@
 <template>
-  <q-page>
-    <div class="q-px-xl">
-      <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
-        {{ $t('projects') }}
-      </div>
-      <div class="flex justify-end q-mx-md">
-        <q-btn
-          class=" text-primary text-capitalize"
-          :label="$t('addProject')"
-          outline
-          @click="openDialog = !openDialog"
-        />
+  <div class="q-px-xl">
+    <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
+      {{ $t('projects') }}
+    </div>
+    <div class="flex justify-end q-mx-md">
+      <q-btn
+        class="text-primary text-capitalize"
+        :label="$t('addProject')"
+        outline
+        @click="openDialog(CreateProject)"
+      />
+    </div>
+    <q-card
+      class="fit q-px-md q-mt-md product-card text-size-12 bg-white rounded-borders"
+    >
+      <q-list padding class="fit">
+        <q-item class="q-mx-sm text-black">
+          <q-input
+            v-model="search"
+            dense
+            outlined
+            placeholder="Search Project"
+            class="input-search text-size-14"
+          >
+            <template #prepend>
+              <q-btn round flat dense :icon="mdiMagnify" />
+            </template>
+          </q-input>
+        </q-item>
+        <q-separator class="q-ma-md" />
 
-        <q-dialog v-model="openDialog">
-          <CreateProject
-            @open-dialog="() => (openDialog = !openDialog)"
-            @project="(projectDetails) => projects.push(projectDetails)"
-          />
-        </q-dialog>
-      </div>
-      <q-card
-        class="fit q-px-md q-mt-md product-card text-size-12 bg-white rounded-borders"
-      >
-        <q-list padding class="fit">
-          <q-item class="q-mx-sm text-black">
-            <q-input
-              v-model="search"
-              dense
-              outlined
-              placeholder="Search Project"
-              class="input-search text-size-14"
-            >
-              <template #prepend>
-                <q-btn round flat dense :icon="mdiMagnify" />
-              </template>
-            </q-input>
-          </q-item>
-          <q-separator class="q-ma-md" />
+        <q-item
+          class="header text-left text-primary text-bold text-size-14 q-ma-sm justify-between rounded-borders"
+        >
+          <q-item-section class="col-4">
+            <q-item-label class="q-mt-sm"> {{ $t('title') }} </q-item-label>
+          </q-item-section>
+          <q-item-section class="col-3">
+            <q-item-label class="q-mt-sm">
+              {{ $t('dateCreated') }}
+            </q-item-label>
+          </q-item-section>
+          <q-item-section class="col-3">
+            <q-item-label class="q-mt-sm"> {{ $t('endDate') }} </q-item-label>
+          </q-item-section>
 
+          <q-item-section end class="col-2">
+            <q-item-label class="q-mt-sm">{{ $t('actions') }} </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-scroll-area
+          class="scroll"
+          visible
+          :vertical-thumb-style="thumbStyle"
+        >
           <q-item
-            class="header text-left text-primary text-bold text-size-14 q-ma-sm justify-between rounded-borders"
+            v-for="(project, index) in projects"
+            :key="project.id"
+            class="text-left q-ma-sm justify-between"
           >
             <q-item-section class="col-4">
-              <q-item-label class="q-mt-sm"> {{$t('title')}} </q-item-label>
+              <q-item-label class="q-mt-sm">
+                {{ project.title }}
+              </q-item-label>
             </q-item-section>
             <q-item-section class="col-3">
-              <q-item-label class="q-mt-sm">  {{$t('dateCreated')}} </q-item-label>
+              <q-item-label class="q-mt-sm">
+                {{ new Date(project.createdAt).toDateString() }}
+              </q-item-label>
             </q-item-section>
-            <q-item-section class="col-3">
-              <q-item-label class="q-mt-sm"> {{$t('endDate')}} </q-item-label>
+            <q-item-section class="col-3 text-weight-bold">
+              <q-item-label class="q-mt-sm">
+                {{
+                  project.endDate
+                    ? new Date(project.endDate).toDateString()
+                    : $t('notSpecified')
+                }}
+              </q-item-label>
             </q-item-section>
-
-            <q-item-section end class="col-2">
-              <q-item-label class="q-mt-sm">{{$t('actions')}} </q-item-label>
+            <q-item-section>
+              <div class="row">
+                <q-btn
+                  flat
+                  dense
+                  round
+                  :icon="mdiPencil"
+                  class="cursor-pointer"
+                  @click="openDialog(EditProject, project.id)"
+                  ><q-tooltip> {{ $t('editProject') }} </q-tooltip>
+                </q-btn>
+                <q-btn
+                  flat
+                  dense
+                  round
+                  :icon="mdiTrashCan"
+                  @click="deleteProject(index)"
+                >
+                  <q-tooltip> {{ $t('deleteProject') }} </q-tooltip>
+                </q-btn>
+                <q-btn
+                  flat
+                  dense
+                  round
+                  :icon="mdiBookArrowRightOutline"
+                  @click="viewProjectTasks(project)"
+                >
+                  <q-tooltip> {{ $t('viewTasks') }} </q-tooltip>
+                </q-btn>
+              </div>
             </q-item-section>
           </q-item>
-
-          <q-scroll-area
-            class="scroll"
-            visible
-            :vertical-thumb-style="thumbStyle"
-          >
-            <q-item
-              v-for="(project, index) in projects"
-              :key="project.id"
-              class="text-left q-ma-sm justify-between"
-            >
-              <q-item-section class="col-4">
-                <q-item-label class="q-mt-sm">
-                  {{ project.title }}
-                </q-item-label>
-              </q-item-section>
-              <q-item-section class="col-3">
-                <q-item-label class="q-mt-sm">
-                  {{ new Date(project.createdAt).toDateString() }}
-                </q-item-label>
-              </q-item-section>
-              <q-item-section class="col-3 text-weight-bold">
-                <q-item-label class="q-mt-sm">
-                  {{
-                    project.endDate
-                      ? new Date(project.endDate).toDateString()
-                      : $t('notSpecified')
-                  }}
-                </q-item-label>
-              </q-item-section>
-              <q-item-section>
-                <div class="row">
-                  <q-btn
-                    flat
-                    dense
-                    round
-                    :icon="mdiPencil"
-                    class="cursor-pointer"
-                    ><q-tooltip> {{ $t('editProject') }} </q-tooltip>
-                  </q-btn>
-                  <q-btn
-                    flat
-                    dense
-                    round
-                    :icon="mdiTrashCan"
-                    @click="deleteProject(index)"
-                  >
-                    <q-tooltip>  {{ $t('deleteProject') }} </q-tooltip>
-                  </q-btn>
-                  <q-btn
-                    flat
-                    dense
-                    round
-                    :icon="mdiBookArrowRightOutline"
-                    @click="viewProjectTasks(project)"
-                  >
-                    <q-tooltip> {{ $t('viewTasks') }} </q-tooltip>
-                  </q-btn>
-                </div>
-              </q-item-section>
-            </q-item>
-          </q-scroll-area>
-        </q-list>
-      </q-card>
-    </div>
-  </q-page>
+        </q-scroll-area>
+      </q-list>
+    </q-card>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -132,17 +126,47 @@ import {
 } from '@quasar/extras/mdi-v6';
 import { api } from 'src/boot/axios';
 import { Project } from '../components/models';
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, Component } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';
 import CreateProject from 'src/components/create-project.vue';
-import { Dialog } from 'quasar';
+import { Dialog, useQuasar } from 'quasar';
+import EditProject from 'src/components/edit-project.vue';
 
 const router = useRouter();
 
-const openDialog = ref(false);
+const $q = useQuasar();
+
 const search = ref('');
 const projects = ref<Project[]>([] as Project[]);
+
+function openDialog(component: Component, id?: string) {
+  $q.dialog({
+    component: component,
+
+    componentProps: {
+      id: id
+    }
+  })
+    .onOk(() => {
+      api
+        .get(`projects/${auth.authUser?.id}/all`, {
+          headers: {
+            Authorization: 'Bearer ' + auth.token,
+            'x-access-token': auth.token
+          }
+        })
+        .then((res) => {
+          projects.value = res.data;
+        });
+    })
+    .onCancel(() => {
+      console.log('Cancel');
+    })
+    .onDismiss(() => {
+      console.log('Called on OK or Cancel');
+    });
+}
 
 const auth = useAuthStore();
 onBeforeMount(async () => {
@@ -150,7 +174,7 @@ onBeforeMount(async () => {
     router.push({ name: 'login' });
   }
   api
-    .get(`projects/${auth.authUser?.id}`, {
+    .get(`projects/${auth.authUser?.id}/all`, {
       headers: {
         Authorization: 'Bearer ' + auth.token,
         'x-access-token': auth.token
@@ -208,7 +232,7 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
       200px
   );
 }
-.header{
+.header {
   border: 1px solid $primary;
 }
 </style>
