@@ -9,15 +9,8 @@
           class=" text-primary text-capitalize"
           :label="$t('addTask')"
           outline
-          @click="openDialog "
+          @click="openDialog(CreateTask) "
         />
-
-
-          <create-task
-            @open-dialog="() => (openDialog = !openDialog)"
-            @task="(taskDetails : Task)=>tasks.push(taskDetails)"
-          />
-
       </div>
       <q-card
         class="fit q-px-md q-mt-md product-card text-size-12 bg-white rounded-borders"
@@ -123,6 +116,7 @@
                     round
                     :icon="mdiPencil"
                     class="cursor-pointer"
+                    @click="openDialog(EdithTask, {id : task.id})"
                     ><q-tooltip> {{ $t('editTask') }} </q-tooltip>
                   </q-btn>
                   <q-btn
@@ -149,26 +143,29 @@ import { mdiMagnify, mdiPencil, mdiTrashCan } from '@quasar/extras/mdi-v6';
 import { useQuasar } from 'quasar'
 import { api } from 'src/boot/axios';
 import { Task } from '../components/models';
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, Component } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';
 import CreateTask from 'src/components/create-task.vue';
 import { Dialog } from 'quasar';
+import EdithTask from 'src/components/edith-task.vue';
 
 const router = useRouter();
 
 const $q = useQuasar()
 
-const taskDetails = ref<Task>({} as Task);
+interface Props {
+  id : number |string
+}
+
 const projects = ref<Task[]>([]);
-function openDialog(){
+function openDialog(component : Component, props? : Props ){
   $q.dialog({
-    component: CreateTask,
+    component:component,
 
     // props forwarded to your custom component
     componentProps: {
-      text: 'something',
-      // ...more..props...
+      ...props
     }
   }).onOk(() => {
     console.log('OK')
@@ -187,7 +184,7 @@ onBeforeMount(async () => {
     router.push({ name: 'login' });
   }
   api
-    .get(`tasks/${auth.authUser?.id}`, {
+    .get(`tasks/${auth.authUser?.id}/all`, {
       headers: {
         Authorization: 'Bearer ' + auth.token,
         'x-access-token': auth.token
