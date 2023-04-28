@@ -50,7 +50,12 @@ export const english = {
   updateTask: 'Update Task',
   update: 'Update',
   cancel : 'Cancel',
-  save: 'Save'
+  save: 'Save',
+  high: 'High',
+  medium: 'Medium',
+  low: 'Low',
+  created: 'Created',
+  newItem: 'New Item'
 
 
 };

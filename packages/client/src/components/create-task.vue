@@ -43,7 +43,7 @@
             lazy-rules
             bordered
             outlined
-            :options="['High', 'Medium', 'Low']"
+            :options="[$t('high'), $t('medium'), $t('low')]"
             label="Priority"
             :rules="[(value) => !!value || $t('firstNameIsRequired')]"
           >

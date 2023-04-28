@@ -36,16 +36,16 @@
             <q-card-section class="column">
               <q-badge
                 :color="`${
-                  item.priority === 'High'
+                  item.priority === $t('high')
                     ? 'negative'
-                    : item.priority === 'Medium'
+                    : item.priority === $t('Medium')
                     ? 'accent'
                     : 'positive'
                 } q-px-md text-weight-medium`"
                 floating
                 transparent
                 :class="`text-capitalize text-${
-                  item.priority === 'High' ? 'white' : 'black'
+                  item.priority === $t('high') ? 'white' : 'black'
                 } q-px-md text-weight-medium`"
               >
                 {{ item.priority }}
@@ -70,7 +70,7 @@
         </q-scroll-area>
         <q-card-actions class="q-pa-none q-ma-none text-secondary">
           <q-btn flat dense class="text-capitalize" :icon="mdiPlus">
-            New Item
+           {{$t('newItem')}}
           </q-btn>
         </q-card-actions>
       </q-card>
@@ -103,23 +103,23 @@
             <q-card-section class="column">
               <q-badge
                 :color="`${
-                  item.priority === 'High'
+                  item.priority === $t('high')
                     ? 'negative'
-                    : item.priority === 'Medium'
+                    : item.priority === $t('Medium')
                     ? 'accent'
                     : 'positive'
                 } q-px-md text-weight-medium`"
                 floating
                 transparent
                 :class="`text-capitalize text-${
-                  item.priority === 'High' ? 'white' : 'black'
+                  item.priority === $t('high') ? 'white' : 'black'
                 } q-px-md text-weight-medium`"
               >
                 {{ item.priority }}
               </q-badge>
               <span class="text-weight-medium">{{ item.description }}</span>
               <span
-                ><span>Created: </span
+                ><span>{{$t('created')}}: </span
                 >{{
                   Math.ceil(
                     (new Date().getTime() -

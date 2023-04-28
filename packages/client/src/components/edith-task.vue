@@ -35,7 +35,7 @@
          bordered
          outlined
          class="q-py-md"
-         :options="['High', 'Medium', 'Low']"
+         :options="[$t('high'), $t('medium'), $t('low')]"
          :label="$t('priority')"
 
        >
