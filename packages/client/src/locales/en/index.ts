@@ -49,13 +49,12 @@ export const english = {
   viewTasks: 'view tasks',
   updateTask: 'Update Task',
   update: 'Update',
-  cancel : 'Cancel',
+  cancel: 'Cancel',
   save: 'Save',
   high: 'High',
   medium: 'Medium',
   low: 'Low',
   created: 'Created',
-  newItem: 'New Item'
-
-
+  newItem: 'New Item',
+  daysAgo: 'days ago'
 };
