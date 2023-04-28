@@ -34,11 +34,15 @@ export class TaskController {
     return this.tasksService.update(updateTaskDto);
   }
 
-  @Get(':studentId')
+  @Get(':studentId/all')
   findStudentTasks(@Param('studentId') studentId: string) {
     return this.tasksService.findStudentTasks(+studentId);
   }
 
+  @Get(':taskId')
+  findTask(@Param('taskId') taskId: string) {
+    return this.tasksService.findOne(taskId);
+  }
   @Delete(':taskId')
   delete(@Param('taskId') taskId: string) {
     return this.tasksService.delete(taskId);
