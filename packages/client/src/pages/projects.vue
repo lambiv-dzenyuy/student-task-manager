@@ -160,12 +160,7 @@ function openDialog(component: Component, id?: string) {
           projects.value = res.data;
         });
     })
-    .onCancel(() => {
-      console.log('Cancel');
-    })
-    .onDismiss(() => {
-      console.log('Called on OK or Cancel');
-    });
+
 }
 
 const auth = useAuthStore();

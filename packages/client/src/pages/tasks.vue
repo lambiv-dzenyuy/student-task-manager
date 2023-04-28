@@ -178,12 +178,6 @@ function openDialog(component: Component, props?: Props) {
           tasks.value = res.data;
         });
     })
-    .onCancel(() => {
-      console.log('Cancel');
-    })
-    .onDismiss(() => {
-      console.log('Called on OK or Cancel');
-    });
 }
 const search = ref('');
 const tasks = ref<Task[]>([] as Task[]);
