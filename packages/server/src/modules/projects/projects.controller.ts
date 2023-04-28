@@ -27,7 +27,7 @@ export class ProjectsController {
     return this.projectsService.findAll();
   }
 
-  @Get(':studentId')
+  @Get(':studentId/all')
   async findAllStudentProjects(@Param('studentId') studentId: string) {
     Logger.log(`student id gotten is of type, ${studentId}`);
     return this.projectsService.findStudentProjects(+studentId);

@@ -25,7 +25,7 @@ export class ProjectsService {
   }
 
   update(id: string, updateProjectDto: UpdateProjectDto) {
-    return this.prisma.project.update({ data : {...updateProjectDto}, where: {  id } });
+    return this.prisma.project.update({ data : {...updateProjectDto, endDate : new Date(updateProjectDto.endDate)}, where: {  id } });
   }
 
   findStudentProjects( studentId :  number) {
