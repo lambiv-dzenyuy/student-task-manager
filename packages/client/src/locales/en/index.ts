@@ -46,5 +46,11 @@ export const english = {
   deleteTask: 'delete task',
   addTask: 'add  task',
   addProject: 'add  project',
-  viewTasks: 'view tasks'
+  viewTasks: 'view tasks',
+  updateTask: 'Update Task',
+  update: 'Update',
+  cancel : 'Cancel',
+  save: 'Save'
+
+
 };
