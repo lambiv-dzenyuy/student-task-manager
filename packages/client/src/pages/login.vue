@@ -7,12 +7,12 @@
         <p>{{ $t('yourTasks') }}</p>
       </div>
     </div>
-    <div class="column self-center">
+    <div class="column content-center justify-center">
       <q-card
-        class="shadow-24 q-px-auto column self-center form rounded-borders"
+        class="full-width shadow-24 q-px-md q-mx-md column self-center rounded-borders"
       >
         <q-card-section>
-          <q-form class="q-px-sm q-pt-xl">
+          <q-form class=" form q-pt-xl">
             <q-input
               v-model="email"
               square
@@ -43,13 +43,13 @@
             </q-input>
           </q-form>
         </q-card-section>
-        <q-card-actions class="align-center column q-px-xl">
+        <q-card-actions class="align-center column q-px-lg">
           <q-btn
             unelevated
             dense
             size="lg"
             color="secondary"
-            class="fit justify-center text-white text-size-md text-capitalize"
+            class="fit justify-center text-white q-pa-lg text-size-md text-capitalize"
             :label="$t('login')"
             @click="submit"
           />
@@ -106,10 +106,13 @@ function navigateToRegistration() {
 </script>
 
 <style lang="scss" scoped>
-.form,
+
+.form{
+  width: 350px;
+}
 .text-message-section {
-  width: 400px;
-  height: 380px;
+  width: 40vw;
+
   margin: 0 auto;
 }
 

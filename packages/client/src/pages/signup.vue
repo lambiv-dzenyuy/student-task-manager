@@ -1,5 +1,5 @@
 <template>
-  <div class="row wrap justify-between">
+  <div class="fit row wrap justify-evenly">
     <div
       class="column justify-center items-center content-start q-pa-lg q-mx-lg"
     >
@@ -7,10 +7,11 @@
         <q-card-section
           header
           class="text-black center text-center text-h5 text-grey-8"
-          >{{ $t('createAnAccount') }}</q-card-section
         >
+          {{ $t('createAnAccount') }}
+        </q-card-section>
         <q-card-section>
-          <q-form class="q-px-sm q-pa-md">
+          <q-form class="q-px-sm">
             <q-input
               v-model="data.firstName"
               dense
@@ -51,7 +52,7 @@
               outlined
               clearable
               :label="$t('password')"
-              :rules="[(value) => !!value ||$t('passwordIsRequired')]"
+              :rules="[(value) => !!value || $t('passwordIsRequired')]"
             >
               <template #prepend>
                 <q-icon name="lock" />
@@ -68,8 +69,8 @@
               :rules="[
                 (value) => !!value || $t('passwordConfirmationRequired'),
                 (value) =>
-                  value === password ||$t('passwordConfirmationDoesNotMatchPassword')
-
+                  value === password ||
+                  $t('passwordConfirmationDoesNotMatchPassword')
               ]"
             >
               <template #prepend>
@@ -91,12 +92,11 @@
         </q-card-actions>
         <q-card-section class="text-center q-pa-sm">
           <p class="text-primary cursor-pointer" @click="navigateToLogin()">
-           {{$t('alreadyHaveAnAccount')}}?
+            {{ $t('alreadyHaveAnAccount') }}?
           </p>
         </q-card-section>
       </q-card>
     </div>
-
     <div
       class="column q-pa-lg landing-image justify-center items-center content-start q-mx-lg"
     >
