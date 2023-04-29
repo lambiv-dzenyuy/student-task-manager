@@ -1,5 +1,5 @@
 import { route } from 'quasar/wrappers';
-import { useAuthStore } from 'src/stores/auth';
+
 import {
   createMemoryHistory,
   createRouter,
@@ -19,7 +19,6 @@ import routes from './routes';
  */
 
 export default route(function (/* { store, ssrContext } */) {
-  const isAuthenticated = useAuthStore().isAuthenticated;
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'

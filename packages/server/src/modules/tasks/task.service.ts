@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { zip } from 'rxjs';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -31,7 +30,7 @@ export class TasksService {
   findOne(id: string) {
     return this.prisma.task.findUnique({ where: { id: id } });
   }
-
+  
   update(updateTaskDto: UpdateTaskDto) {
     return this.prisma.task.update({
       data: updateTaskDto,
