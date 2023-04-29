@@ -3,7 +3,7 @@
     <q-card class="q-dialog-plugin rounded-borders">
       <q-card-section class="text-center"> Create Task </q-card-section>
       <q-card-section>
-        <q-form class="q-px-sm q-pa-md">
+        <q-form class="q-px-sm q-px-md">
           <q-select
             v-model="projectTitle"
             clearable
@@ -32,7 +32,7 @@
             clearable
             type="textarea"
             label="Description"
-            class="q-py-md"
+            class="q-pb-md"
           >
           </q-input>
           <q-select
@@ -78,15 +78,15 @@
             outlined
             clearable
             type="date"
-            class="q-py-md"
+            class="q-pt-md"
             label="End Date"
           >
           </q-input>
         </q-form>
       </q-card-section>
       <q-card-actions align="center">
-        <q-btn color="secondary" label="Save Task" @click="submitTask()" />
-        <q-btn color="secondary" label="Cancel" @click="onDialogCancel" />
+        <q-btn dense color="secondary" label="Save Task" @click="submitTask()" />
+        <q-btn dense color="secondary" label="Cancel" @click="onDialogCancel" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -129,7 +129,7 @@ defineEmits<{
 }>();
 
 api
-  .get(`projects/${auth.authUser?.id}`, {
+  .get(`projects/${auth.authUser?.id}/all`, {
     headers: {
       Authorization: 'Bearer ' + auth.token,
       'x-access-token': auth.token

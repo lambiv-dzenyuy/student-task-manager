@@ -1,5 +1,5 @@
 <template>
-  <div class="q-px-xl">
+  <div class="q-px-md">
     <div class="text-h5 text-capitalize font-weight-medium q-pa-md">
       {{ $t('tasks') }}
     </div>
@@ -161,23 +161,21 @@ function openDialog(component: Component, props?: Props) {
   $q.dialog({
     component: component,
 
-    // props forwarded to your custom component
     componentProps: {
       ...props
     }
-  })
-    .onOk(() => {
-      api
-        .get(`tasks/${auth.authUser?.id}/all`, {
-          headers: {
-            Authorization: 'Bearer ' + auth.token,
-            'x-access-token': auth.token
-          }
-        })
-        .then((res) => {
-          tasks.value = res.data;
-        });
-    })
+  }).onOk(() => {
+    api
+      .get(`tasks/${auth.authUser?.id}/all`, {
+        headers: {
+          Authorization: 'Bearer ' + auth.token,
+          'x-access-token': auth.token
+        }
+      })
+      .then((res) => {
+        tasks.value = res.data;
+      });
+  });
 }
 const search = ref('');
 const tasks = ref<Task[]>([] as Task[]);
@@ -198,7 +196,7 @@ onBeforeMount(async () => {
       tasks.value = res.data;
 
       api
-        .get(`projects/${auth.authUser?.id}`, {
+        .get(`projects/${auth.authUser?.id}/all`, {
           headers: {
             Authorization: 'Bearer ' + auth.token,
             'x-access-token': auth.token
@@ -225,6 +223,7 @@ function deleteTask(taskIndex: number) {
   }).onOk(() => {
     const id = tasks.value[taskIndex].id;
     tasks.value.splice(taskIndex, 1);
+
     api.delete(`tasks/${id}`, {
       headers: {
         Authorization: 'Bearer ' + auth.token,
