@@ -33,7 +33,7 @@
                     <q-avatar :icon="mdiLogout" />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>{{ $t('logout') }}</q-item-label>
+                    <q-item-label><router-link to="/">{{ $t('logout') }}</router-link></q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -123,7 +123,9 @@
     </q-drawer>
 
     <q-page-container>
+      <q-page>
       <router-view />
+    </q-page>
     </q-page-container>
   </q-layout>
 </template>
@@ -137,7 +139,7 @@ import {
   mdiLogout,
   mdiPencil
 } from '@quasar/extras/mdi-v6';
-import { Component, onBeforeMount, ref } from 'vue';
+import { Component, onBeforeMount} from 'vue';
 import { useI18n } from 'vue-i18n';
 import createTask from 'src/components/create-task.vue';
 import { useAuthStore } from 'src/stores/auth';
@@ -169,7 +171,9 @@ onBeforeMount(async () => {
 
 function logout() {
   auth.set('', {} as Student);
-  router.push({ name: 'login' });
+  router.replace('/')
+
+
 }
 
 function openDialog(component: Component) {
@@ -193,7 +197,6 @@ function openDialog(component: Component) {
     });
 }
 
-const currentUser = auth.authUser;
 </script>
 
 <style lang="scss" scoped>
