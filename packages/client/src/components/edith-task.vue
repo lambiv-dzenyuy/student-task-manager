@@ -127,6 +127,7 @@ const taskDetails = ref<Task>({} as Task);
 
 const props = defineProps({
 
+  // eslint-disable-next-line vue/require-default-prop
   id : String
 
 });
@@ -150,6 +151,8 @@ function submitTask() {
      {
       id : props.id,
        ...taskDetails.value,
+       startDate: new Date(taskDetails.value.startDate),
+      endDate: new Date(taskDetails.value.endDate)
      },
      {
        headers: {

@@ -74,6 +74,7 @@ defineEmits<{
 }>();
 
 const props = defineProps({
+  // eslint-disable-next-line vue/require-default-prop
   id: String
 });
 
