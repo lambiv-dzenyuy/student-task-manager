@@ -1,8 +1,8 @@
 <template>
-  <div class="q-py-lg col">
+  <div class="q-py-lg column">
     <div class="q-mx-lg text-h5">{{ $route.params.projectTitle }}</div>
     <div
-      class="q-pa-md fit row no-wrap justify-between items-stretch content-stretch"
+      class="q-pa-sm fit row no-wrap justify-between items-stretch content-stretch"
     >
       <q-card
         v-for="(status, index) in taskStatus"
@@ -25,7 +25,7 @@
           class="scroll"
         >
           <q-card
-            v-for="item in getList( status)"
+            v-for="item in getList(status)"
             :key="item.id"
             bordered
             flat
@@ -51,12 +51,12 @@
                 {{ item.priority }}
               </q-badge>
 
-              <span class="text-weight-medium text-italics">{{
-                item.description
-              }}</span>
+              <span class="text-weight-medium text-italics">
+                {{ item.title }}
+              </span>
               <span
-                ><span>Created: </span
-                >{{
+                ><span> Created: </span>
+                {{
                   Math.ceil(
                     (new Date().getTime() -
                       new Date(item.createdAt).getTime()) /
@@ -70,7 +70,7 @@
         </q-scroll-area>
         <q-card-actions class="q-pa-none q-ma-none text-secondary">
           <q-btn flat dense class="text-capitalize" :icon="mdiPlus">
-           {{$t('newItem')}}
+            {{ $t('newItem') }}
           </q-btn>
         </q-card-actions>
       </q-card>
@@ -119,7 +119,7 @@
               </q-badge>
               <span class="text-weight-medium">{{ item.description }}</span>
               <span
-                ><span>{{$t('created')}}: </span
+                ><span>{{ $t('created') }}: </span
                 >{{
                   Math.ceil(
                     (new Date().getTime() -
