@@ -42,19 +42,21 @@
         </q-item>
         <q-separator class="q-mx-md" spaced="sm" />
         <q-list class="text-weight-medium text-size-14 line-height-20">
-          <q-item
+          <!--
+            <q-item
             class="q-mx-md rounded-borders"
             clickable
             exact-active-class="text-accent"
             to="/view/dashboard"
-          >
+            >
             <q-item-section avatar>
-              <q-btn flat dense :icon="mdiViewDashboard" />
+            <q-btn flat dense :icon="mdiViewDashboard" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ $t('dashboard') }}</q-item-label>
+            <q-item-label>{{ $t('dashboard') }}</q-item-label>
             </q-item-section>
-          </q-item>
+            </q-item>
+          -->
           <q-item
             class="q-mx-md rounded-borders"
             clickable
@@ -133,7 +135,6 @@
 <script setup lang="ts">
 import {
   mdiDomain,
-  mdiViewDashboard,
   mdiPlus,
   mdiProjector,
   mdiLogout,

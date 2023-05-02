@@ -96,7 +96,7 @@ function submit() {
       ) {
         auth.set(response.data.access_token, response.data.userData);
       }
-      router.push({ name: 'dashboard' });
+      router.push({ name: 'projects' });
     });
 }
 

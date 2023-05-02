@@ -1,7 +1,7 @@
 import MainLayoutVue from 'layouts/MainLayout.vue';
 import Tasks from 'src/pages/tasks.vue';
-import Dashboard from 'src/pages/dashboard.vue';
 import projects from 'pages/projects.vue';
+import Login from 'pages/login.vue';
 import ProjectTasks from 'pages/project-tasks.vue';
 import { RouteRecordRaw } from 'vue-router';
 
@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     path: '/view',
     component: MainLayoutVue,
     children: [
-      { name: 'dashboard', path: 'dashboard', component: Dashboard },
+
       { name: 'projects', path: 'projects', component: projects },
       { name: 'tasks', path: 'tasks', component: Tasks },
       {
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/auth-layout.vue'),
     children: [
-      { name: 'login', path: '', component: () => import('pages/login.vue') },
+      { name: 'login', path: '', component: Login },
       {
         name: 'signup',
         path: 'signup',
