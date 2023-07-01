@@ -4,8 +4,8 @@ export async function seedStudents(prisma: PrismaTransactionClient) {
   await prisma.student.createMany({
     data: [
       {
-        firstName: 'Maitilde',
-        lastName: 'Gerding',
+        firstName: 'Lambiv',
+        lastName: 'Dzenyuy',
         email: 'mgerding0@ft.com',
         password: '9UFEXY0D8jI',
         avatar: 'https://robohash.org/quiasedamet.png?size=50x50&set=set1',

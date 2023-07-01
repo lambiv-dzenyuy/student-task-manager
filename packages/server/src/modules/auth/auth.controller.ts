@@ -8,7 +8,7 @@ import { Public } from './skip.auth';
 export class AuthController {
     constructor(private authService: AuthService) {}
 
-    @Public()
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() signInDto: Record<string, string>) {
