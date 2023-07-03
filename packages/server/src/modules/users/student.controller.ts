@@ -34,9 +34,5 @@ export class StudentController {
   update(@Body() studentDto: UpdateStudentDto, @Param('id') studentId: string) {
     return this.studentService.update(+studentId, studentDto);
   }
-  @Get(':id')
-  findOne(@Param() params): string {
-    console.log(params.id);
-    return `This action returns a #${params.id} cat`;
-  }
+
 }

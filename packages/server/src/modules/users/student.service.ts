@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { AuthService } from '../auth/auth.service';
@@ -16,10 +16,18 @@ export class StudentService {
   findOne1(id: string) {
     return this.prisma.task.findUnique({ where: { id } });
   }
-  create(createStudentDto: CreateStudentDto) {
+  async create(createStudentDto: CreateStudentDto) {
     try {
+      const saltRounds = process.env.PASSWORD_SALT_ROUNDS;
+      const cryptedPassword = await bcrypt.hash(
+        createStudentDto.password,
+        Number(saltRounds)
+      );
       this.prisma.student.create({
-        data: createStudentDto
+        data:{
+          ... createStudentDto,
+          password: cryptedPassword
+        }
       });
     } catch (err) {
       throw new HttpException(

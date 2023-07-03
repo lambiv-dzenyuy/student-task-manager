@@ -1,85 +1,31 @@
-import { PrismaTransactionClient } from './index';
+import { Logger } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
+
+import { PrismaTransactionClient } from './index';
+import { studentFixture } from './studentFixture';
+
+const logger = new Logger('UserSeed');
 export async function seedStudents(prisma: PrismaTransactionClient) {
-  await prisma.student.createMany({
-    data: [
-      {
-        firstName: 'Lambiv',
-        lastName: 'Dzenyuy',
-        email: 'mgerding0@ft.com',
-        password: '9UFEXY0D8jI',
-        avatar: 'https://robohash.org/quiasedamet.png?size=50x50&set=set1',
+  for (const student of studentFixture) {
+    const saltRounds = process.env.PASSWORD_SALT_ROUNDS;
+    if (!saltRounds) {
+      throw new Error("Env value 'PASSWORD_SALT_ROUNDS' has not been set");
+    }
+    const cryptedPassword = await bcrypt.hash(
+      student.password,
+      Number(saltRounds)
+    );
+
+    await prisma.student.create({
+      
+      data: {
+        ...student,
+        password: cryptedPassword,
       },
-      {
-        firstName: 'Broderick',
-        lastName: 'Channon',
-        email: 'bchannon1@latimes.com',
-        password: 'r0bFsKz3a6s',
-        avatar:
-          'https://robohash.org/estsedrepudiandae.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Miguel',
-        lastName: 'Conwell',
-        email: 'mconwell2@arizona.edu',
-        password: 'dDtOHX9K',
-        avatar: 'https://robohash.org/rerumdoloremsint.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Neil',
-        lastName: 'Clawsley',
-        email: 'nclawsley3@netlog.com',
-        password: 'MqKCOmIrzMu',
-        avatar: 'https://robohash.org/quietconsectetur.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Jesse',
-        lastName: 'Goane',
-        email: 'jgoane4@bbc.co.uk',
-        password: 'F9fT6rsA',
-        avatar:
-          'https://robohash.org/eligendivoluptatemet.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Kinny',
-        lastName: 'Strick',
-        email: 'kstrick5@devhub.com',
-        password: '0yPsFoKvy',
-        avatar:
-          'https://robohash.org/fugiatmagnammolestiae.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Doralia',
-        lastName: 'Stanyard',
-        email: 'dstanyard6@purevolume.com',
-        password: 'xcjGUdUu',
-        avatar:
-          'https://robohash.org/deseruntvoluptatemdicta.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Gwen',
-        lastName: 'Netherwood',
-        email: 'gnetherwood7@wisc.edu',
-        password: 'yBEB9mAczf',
-        avatar:
-          'https://robohash.org/nihilsuscipitquaerat.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Phillip',
-        lastName: 'Schruur',
-        email: 'pschruur8@google.cn',
-        password: 'zTRr4igPvr',
-        avatar:
-          'https://robohash.org/quimolestiaemolestias.png?size=50x50&set=set1',
-      },
-      {
-        firstName: 'Kerry',
-        lastName: 'Beatey',
-        email: 'kbeatey9@nature.com',
-        password: 'b1pndVbZnnF',
-        avatar:
-          'https://robohash.org/etdoloremmolestiae.png?size=50x50&set=set1',
-      },
-    ],
-  });
+    });
+
+   
+    
+  }
 }

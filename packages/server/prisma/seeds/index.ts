@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { seedProjects } from './projects';
-import { seedStudents } from './students';
 import { seedTasks } from './tasks';
+import { seedStudents } from './students';
 
 const prisma = new PrismaClient();
 

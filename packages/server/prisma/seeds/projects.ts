@@ -6,13 +6,13 @@ export async function seedProjects(prisma: PrismaTransactionClient) {
     data: [
       {
         id: id,
-        title: "One Night at McCool's",
+        title: "CSC498",
         description:
           'Revision of Synthetic Substitute in Low Back, Open Approach',
         studentId: 1,
       },
       {
-        title: 'Our Children (À perdre la raison)',
+        title: 'UML project',
         description:
           'Replacement of R Post Tib Art with Nonaut Sub, Open Approach',
         studentId: 1,
@@ -26,34 +26,34 @@ export async function seedProjects(prisma: PrismaTransactionClient) {
       {
         title: 'Defendor',
         description: 'Extirpate matter from R Ankle Bursa/Lig, Perc Endo',
-        studentId: 4,
+        studentId: 1,
       },
       {
         title: 'Cowboy Bebop: The Movie (Cowboy Bebop: Tengoku no Tobira)',
         description: 'Insertion of Ext Fix into L Maxilla, Open Approach',
-        studentId: 2,
+        studentId: 1,
       },
       {
         title: 'Into the Woods',
         description: 'Drainage of Right Kidney, Open Approach',
-        studentId: 3,
+        studentId: 1,
       },
       {
         title: 'Female Vampire (Les avaleuses) (Erotic Kill)',
         description:
           'Extirpate of Matter from L Abd Bursa/Lig, Perc Endo Approach',
-        studentId: 5,
+        studentId: 1,
       },
       {
         title: 'Nasty Girl, The (schreckliche Mädchen, Das)',
         description: 'Drainage of R Abd Bursa/Lig, Perc Approach, Diagn',
-        studentId: 2,
+        studentId: 1,
       },
       {
         title: 'No Time for Love',
         description:
           'Extraction of Nasal Septum, Percutaneous Endoscopic Approach',
-        studentId: 3,
+        studentId: 2,
       },
       {
         title: 'Paradise',
